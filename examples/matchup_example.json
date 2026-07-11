@@ -1,0 +1,10 @@
+{
+  "template": "match_up",
+  "title": "數學名詞配對",
+  "pairs": [
+    { "keyword": "頂點", "definition": "拋物線的最高或最低點" },
+    { "keyword": "對稱軸", "definition": "把拋物線分成左右對稱的鉛直線" },
+    { "keyword": "判別式", "definition": "b² − 4ac,用來判斷根的數量" },
+    { "keyword": "係數", "definition": "變數前面的數字" }
+  ]
+}

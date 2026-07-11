@@ -1,0 +1,16 @@
+# Playwright 除錯產物(含登入帳號的截圖/HTML,勿上傳)
+debug/
+
+# Python
+__pycache__/
+*.pyc
+
+# 登入 session(本來就存在 ~/.wordwall,不在 repo,保險起見再排除)
+.wordwall/
+state.json
+storage_state.json
+
+# 系統檔
+desktop.ini
+.DS_Store
+Thumbs.db

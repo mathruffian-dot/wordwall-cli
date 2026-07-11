@@ -1,0 +1,21 @@
+{
+  "template": "quiz",
+  "title": "二次函數小測驗",
+  "items": [
+    {
+      "question": "拋物線 y = x² 的開口方向是?",
+      "answers": ["向上", "向下", "向左", "向右"],
+      "correct": 0
+    },
+    {
+      "question": "y = -2x² + 3 的頂點 y 座標是?",
+      "answers": ["-2", "0", "3", "無法判斷"],
+      "correct": 2
+    },
+    {
+      "question": "二次函數圖形的對稱軸是一條?",
+      "answers": ["水平線", "鉛直線", "斜線", "曲線"],
+      "correct": 1
+    }
+  ]
+}
