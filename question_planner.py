@@ -174,8 +174,9 @@ def _asset_steps(level: str, layout: dict, gate: dict) -> list[str]:
 
     steps = [
         "確認 AI 圖片確實用於故事、漫畫、解謎或其他創意必要情境。",
-        "公開預設使用 ChatGPT 訂閱方案內建生圖；只有使用者明確設定時才採本機技能覆寫。",
+        "載入 imagegen skill 並呼叫 image_gen 內建工具實際產圖；不得只撰寫 prompt 或靜默降級。",
         "先生成無答案洩漏、風格一致的場景或選項素材。",
+        "目視檢查生成結果，確認數學內容、文字可讀性、構圖與答案洩漏後再定稿。",
         "把數學文字、精準線段、刻度與答案標記用傳統排版覆蓋，不依賴 AI 畫準。",
     ]
     if layout["composite"]:
@@ -241,7 +242,7 @@ def _asset_manifest_contract(level: str, layout: dict) -> dict:
             "answer_leak_checked": True,
             "mobile_checked": True,
         }
-    method = ("chatgpt-subscription" if level == "ai-image"
+    method = ("builtin-imagegen" if level == "ai-image"
               else "existing-or-screenshot")
     role = ("composite-question" if layout["composite"]
             else "final-item-or-pair-side")
@@ -299,9 +300,9 @@ def validate_asset_manifest(manifest: dict, base_dir: Path,
         if not str(manifest.get("prompt", "")).strip():
             raise ValueError("第三級素材必須保存實際生圖 prompt。")
         if manifest.get("generation_method") not in {
-                "chatgpt-subscription", "local-draw-override"}:
+                "builtin-imagegen", "local-draw-override"}:
             raise ValueError(
-                "第三級 generation_method 必須是 chatgpt-subscription "
+                "第三級 generation_method 必須是 builtin-imagegen "
                 "或 local-draw-override。")
     return {"status": "asset-manifest-ok",
             "asset_count": len(resolved),
@@ -341,6 +342,17 @@ def build_question_plan(request: str, requested_level: str = "auto",
             "asset_level_label": LEVELS[level]["label"],
         },
         "ai_novelty_gate": gate,
+        "image_generation": {
+            "required": level == "ai-image",
+            "skill": "imagegen" if level == "ai-image" else None,
+            "tool": "image_gen" if level == "ai-image" else None,
+            "instruction": (
+                "載入 imagegen skill 並呼叫 image_gen 實際產圖；產圖後目視檢查。"
+                if level == "ai-image" else "不需要生成圖片。"),
+            "unavailable_action": (
+                "停止 Level 3，請使用者提供圖片或明確確認降級；不得只輸出 prompt。"
+                if level == "ai-image" else None),
+        },
         "layout": layout,
         "asset_steps": _asset_steps(level, layout, gate),
         "content_contract": _content_contract(template, info["schema"], layout),

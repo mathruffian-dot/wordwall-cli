@@ -19,7 +19,9 @@ WoWo CLI 採「能用低等級完成，就不升級」原則。素材等級不�
 ## 第三級：AI 生成圖片出題
 
 只有傳統考卷、截圖或精準繪圖難以表達的視覺敘事才使用。公開 repo 預設使用
-ChatGPT 訂閱方案內建生圖；目前維護者本機操作可依明確設定使用 `draw` 技能。
+ChatGPT／Codex 的 `imagegen` skill 與 `image_gen` 內建工具。通過門檻後必須實際呼叫工具
+產圖並目視檢查，不得只保存 prompt、要求使用者自行產圖，或未說明就降級為第二級。
+目前維護者本機操作可依使用者明確設定改用 `draw` 技能。
 
 可發展的題型包括：
 
@@ -49,7 +51,7 @@ ChatGPT 訂閱方案內建生圖；目前維護者本機操作可依明確設定
 - `answer_leak_checked=true`
 - `mobile_checked=true`
 - `capture_finalized=true`
-- 第三級必須保存實際 prompt 與生圖方式
+- 第三級必須保存實際 prompt，內建生圖記為 `generation_method=builtin-imagegen`
 - 整張題圖模式必須有 `role=composite-question`
 
 範例見 `examples/asset_manifest_screenshot.json`。

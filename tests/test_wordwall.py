@@ -28,6 +28,14 @@ class WordwallHelpersTest(unittest.TestCase):
         self.assertTrue(plan["ai_novelty_gate"]["passed"])
         self.assertIn("漫畫與連續分鏡",
                       plan["ai_novelty_gate"]["novelty_reasons"])
+        self.assertTrue(plan["image_generation"]["required"])
+        self.assertEqual(plan["image_generation"]["skill"], "imagegen")
+        self.assertEqual(plan["image_generation"]["tool"], "image_gen")
+        self.assertIn("不得只輸出 prompt",
+                      plan["image_generation"]["unavailable_action"])
+        self.assertEqual(
+            plan["asset_manifest_contract"]["generation_method"],
+            "builtin-imagegen")
 
     def test_plan_downgrades_ai_for_precise_geometry(self):
         plan = build_question_plan(
@@ -72,7 +80,7 @@ class WordwallHelpersTest(unittest.TestCase):
                 "用 AI 生圖製作漫畫解謎選擇題")
             manifest = {
                 "asset_level": "ai-image",
-                "generation_method": "chatgpt-subscription",
+                "generation_method": "builtin-imagegen",
                 "final_assets": [{
                     "role": "composite-question", "path": "question.png"}],
                 "capture_finalized": True,
@@ -81,6 +89,27 @@ class WordwallHelpersTest(unittest.TestCase):
                 "mobile_checked": True,
             }
             with self.assertRaisesRegex(ValueError, "prompt"):
+                validate_asset_manifest(manifest, base, plan)
+
+    def test_asset_manifest_requires_explicit_imagegen_method(self):
+        with tempfile.TemporaryDirectory() as folder:
+            base = Path(folder)
+            image = base / "question.png"
+            image.write_bytes(b"image")
+            plan = build_question_plan(
+                "用 AI 生圖製作漫畫解謎選擇題")
+            manifest = {
+                "asset_level": "ai-image",
+                "generation_method": "chatgpt-subscription",
+                "prompt": "四格漫畫解謎題，保持角色一致",
+                "final_assets": [{
+                    "role": "composite-question", "path": "question.png"}],
+                "capture_finalized": True,
+                "math_verified": True,
+                "answer_leak_checked": True,
+                "mobile_checked": True,
+            }
+            with self.assertRaisesRegex(ValueError, "builtin-imagegen"):
                 validate_asset_manifest(manifest, base, plan)
 
     def test_deadline_format(self):
