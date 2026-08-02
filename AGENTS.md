@@ -18,6 +18,7 @@
 - `debug/` 可能包含帳號畫面；不得 commit。
 - 成績含學生資料；預設存於 repo 外，不在終端輸出學生姓名，不得 commit。
 - 正式建立活動、建立作業或下載學生成績前，確認使用者已授權該動作與目標。
+- `assets/`、`content/` 可能含使用者題庫或考卷截圖；未逐一確認公開授權前不得自動 commit。
 
 ## 開發與驗證
 
@@ -32,8 +33,12 @@
 ## 主要入口
 
 - `wordwall.py`：CLI 主程式
+- `question_planner.py`：自然語言範本與三級素材規劃
+- `wordwall_catalog.py`：範本能力目錄
 - `setup.ps1`：Windows 安裝器
 - `requirements-pdf.txt`：PDF 截圖選用依賴
 - `SKILL.md`：Agent 使用流程
+- `docs/index.html`：GitHub Pages 視覺化使用網站
+- `docs/USER_GUIDE.md`：給一般使用者的完整操作手冊
 - `examples/`：內容 JSON 範例
 - `tests/`：不寫入 Wordwall 的單元測試
