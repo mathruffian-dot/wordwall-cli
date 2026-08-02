@@ -25,14 +25,16 @@ git clone https://github.com/mathruffian-dot/wordwall-cli.git
 cd wordwall-cli
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\setup.ps1 -WithPdf
-python wordwall.py login
+python wordwall.py chrome-login
+# 在開啟的真實 Chrome 由本人登入 Wordwall
+python wordwall.py grab-session
 python wordwall.py doctor --login --pdf
 ```
 
-不需要 PDF 截圖時可只執行 `.\setup.ps1`。想安裝完成後立刻開啟登入視窗，可用
-`.\setup.ps1 -WithPdf -Login`。
+不需要 PDF 截圖時可只執行 `.\setup.ps1`。`chrome-login` 會使用專用的
+`~/.wordwall/chrome-login-profile` 與預設埠 `9333`，不會誤連 NotebookLM 等工具的 Chrome。
 
-> 安全：本工具不會、也看不到你的帳號密碼。`login` 只開啟瀏覽器，必須由使用者本人操作；
+> 安全：本工具不會、也看不到你的帳號密碼。登入只在使用者本機的真實 Chrome 進行；
 > session 只存於該使用者電腦的 `~/.wordwall/state.json`，不得放入 GitHub。
 
 ## Agent 首次執行規則
@@ -43,8 +45,9 @@ Agent 拿到 repo 後，先執行：
 python wordwall.py doctor --pdf
 ```
 
-若缺少套件，`doctor` 會列出可直接執行的安裝命令。安裝完成但尚未登入時，Agent 應請使用者本人執行
-`python wordwall.py login`，不可索取、代填或記錄帳號密碼。登入完成後再執行：
+若缺少套件，`doctor` 會列出可直接執行的安裝命令。安裝完成但尚未登入時，Agent 應執行
+`python wordwall.py chrome-login`，請使用者本人在專用 Chrome 登入，再執行
+`python wordwall.py grab-session`；不可索取、代填或記錄帳號密碼。登入完成後再執行：
 
 ```powershell
 python wordwall.py doctor --login --pdf
@@ -55,8 +58,9 @@ python wordwall.py doctor --login --pdf
 | 指令 | 狀態 | 說明 |
 |---|---|---|
 | `doctor [--login] [--pdf]` | ✅ 可運作 | 診斷 Python、Playwright、Chromium、本人登入與 PDF 選用元件 |
-| `login` | ✅ 可運作 | 手動登入並存 session(用 Wordwall Email 登入,勿用 Google) |
-| `grab-session` | ✅ 可運作 | 從真實 Chrome(除錯埠)複製登入,繞過 Google 對自動化的封鎖 |
+| `chrome-login` | ✅ 可運作 | 以專用 profile 與安全埠開啟真實 Chrome，供本人登入 |
+| `grab-session` | ✅ 可運作 | 只從本工具記錄的 Chrome 複製登入狀態 |
+| `login` | ✅ 可運作 | 僅供可互動 PowerShell 使用 Email 登入；非互動終端會安全退出 |
 | `check` | ✅ 可運作 | 檢查登入是否有效 |
 | `templates` | ✅ 可運作 | 列出支援的範本代號 |
 | `recommend` | ✅ 可運作 | 依遊戲名稱、schema 與媒體型態推薦範本 |

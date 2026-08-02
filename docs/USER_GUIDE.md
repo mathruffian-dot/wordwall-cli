@@ -50,30 +50,30 @@ Chromium、登入狀態及 PDF 元件，缺少元件時會顯示可直接執行�
 
 ## 3. 登入自己的 Wordwall
 
-### 方式 A：Wordwall Email 登入
+### 方式 A：專用真實 Chrome（建議）
+
+```powershell
+python wordwall.py chrome-login
+# 使用者本人在開啟的 Chrome 登入 Wordwall
+python wordwall.py grab-session
+```
+
+工具使用專用的 `~/.wordwall/chrome-login-profile` 與預設埠 `9333`，不會誤連一般 Chrome、
+NotebookLM 或其他工具。Google 或 Email 都可由本人登入。若埠被占用，請改用：
+
+```powershell
+python wordwall.py chrome-login --port 9334
+python wordwall.py grab-session
+```
+
+### 方式 B：互動式 Wordwall Email 登入
 
 ```powershell
 python wordwall.py login
 ```
 
-工具會開啟登入視窗。請使用者本人輸入資料，工具與 Agent 都不應取得帳號密碼。
-Google 常會阻擋自動化瀏覽器，因此這個視窗建議使用 Wordwall 的 Email 與密碼登入。
-
-### 方式 B：從真實 Chrome 取得登入狀態
-
-若必須使用 Google 登入：
-
-```powershell
-& "C:\Program Files\Google\Chrome\Application\chrome.exe" `
-  --remote-debugging-port=9222 `
-  --user-data-dir="$env:TEMP\ww-debug"
-```
-
-在新開的 Chrome 登入 Wordwall，再回到 PowerShell 執行：
-
-```powershell
-python wordwall.py grab-session
-```
+此方式必須在可互動 PowerShell 執行，登入後回終端按 Enter。Google 常會阻擋
+Playwright，因此請使用 Wordwall Email。非互動終端會在開啟瀏覽器前安全退出並提示方式 A。
 
 確認登入：
 
@@ -342,9 +342,10 @@ Agent 應遵守：
 |---|---|
 | 找不到 `python` | 安裝 Python 3.10 以上並勾選 Add Python to PATH，重開 PowerShell。 |
 | 裝過 Playwright 仍顯示缺少 | 用 `(Get-Command python).Source` 確認是同一個 Python，再重跑 `.\setup.ps1`。 |
-| Google 說瀏覽器不安全 | 改用 Wordwall Email，或用 Chrome 除錯埠搭配 `grab-session`。 |
-| `9222` 連不上 | 完全關閉 Chrome，再用除錯埠與新的 `--user-data-dir` 重開。 |
-| 登入過期 | 重新執行 `login` 或 `grab-session`。 |
+| Google 說瀏覽器不安全 | 使用 `chrome-login` 開啟的真實 Chrome，再執行 `grab-session`。 |
+| `chrome-login` 顯示埠被占用 | 改用 `chrome-login --port 9334`；不要連接其他工具的埠。 |
+| `login` 顯示非互動終端 | 改走 `chrome-login` → 本人登入 → `grab-session`。 |
+| 登入過期 | 重新執行 `chrome-login` 與 `grab-session`。 |
 | 缺少 PDF 元件 | 執行 `.\setup.ps1 -WithPdf` 或安裝 `requirements-pdf.txt`。 |
 | 圖片路徑找不到 | 相對路徑以內容 JSON 所在資料夾為準。 |
 | Wordwall 編輯器欄位失效 | 網站可能改版；使用 `inspect` 與 `debug` 證據重新校正。 |

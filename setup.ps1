@@ -55,12 +55,15 @@ if ($LASTEXITCODE -ne 0) { Write-Host "環境診斷未通過，請依上方建�
 
 Write-Host "`n===== 環境安裝完成 =====" -ForegroundColor Green
 Write-Host "下一步:登入你自己的 Wordwall 帳號(每位老師各自登一次)"
-Write-Host "  最快:  python wordwall.py login   然後用『Email + 密碼』登入(不要點 Sign in with Google)"
-Write-Host "  完成後:python wordwall.py check    出現 [OK] 就代表可以用了"
-Write-Host "  只有 Google 帳號、被 Google 擋?→ 改用 grab-session,步驟見 INSTALL.md"
+Write-Host "  1. python wordwall.py chrome-login"
+Write-Host "  2. 在開啟的專用 Chrome 由本人登入(Google 或 Email 皆可)"
+Write-Host "  3. python wordwall.py grab-session"
+Write-Host "  4. python wordwall.py check    出現 [OK] 就代表可以用了"
+Write-Host "  若埠被占用: python wordwall.py chrome-login --port 9334"
 Write-Host "  需要 PDF 截圖?→ .\setup.ps1 -WithPdf"
 
 if ($Login) {
-    Write-Host "`n即將開啟瀏覽器，請登入你自己的 Wordwall 帳號。" -ForegroundColor Cyan
-    & $pyCmd.Source "$PSScriptRoot\wordwall.py" login
+    Write-Host "`n即將開啟 Wordwall 專用 Chrome，請由本人登入。" -ForegroundColor Cyan
+    & $pyCmd.Source "$PSScriptRoot\wordwall.py" chrome-login
+    Write-Host "登入完成後，請執行: python wordwall.py grab-session" -ForegroundColor Cyan
 }

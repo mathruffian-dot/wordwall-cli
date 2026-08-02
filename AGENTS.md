@@ -8,8 +8,8 @@
 1. 先讀 `README.md`、`INSTALL.md`、`SKILL.md`。
 2. 執行 `python wordwall.py doctor --pdf`。
 3. 若缺少核心元件，Windows 使用 `.\setup.ps1`；需要 PDF 截圖時加 `-WithPdf`。
-4. 若尚未登入，請使用者本人執行 `python wordwall.py login`，再執行
-   `python wordwall.py doctor --login --pdf`。
+4. 若尚未登入，執行 `python wordwall.py chrome-login`，請使用者本人在專用 Chrome 登入，
+   再執行 `python wordwall.py grab-session` 與 `python wordwall.py doctor --login --pdf`。
 
 ## 安全邊界
 

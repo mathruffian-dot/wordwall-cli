@@ -24,18 +24,21 @@ description: 用自然語言控制 Wordwall 建立互動活動、設定學生作
 ```powershell
 cd wordwall-cli
 .\setup.ps1 -WithPdf
-python wordwall.py login
+python wordwall.py chrome-login
+# 使用者本人在專用 Chrome 登入後
+python wordwall.py grab-session
 python wordwall.py doctor --login --pdf
 ```
 
-登入狀態會存到 `~/.wordwall/state.json` 並自動沿用。過期就再跑一次 `login`。
-**絕不要向使用者索取帳號密碼,也不要嘗試自動填入** —— 一律請他自己在 `login` 開的視窗登入。
+登入狀態會存到 `~/.wordwall/state.json` 並自動沿用。專用 Chrome 使用
+`~/.wordwall/chrome-login-profile` 與預設埠 `9333`。
+**絕不要向使用者索取帳號密碼,也不要嘗試自動填入** —— 一律由本人在 Chrome 登入。
 
 ## Agent 首次使用流程
 
 1. 在 repo 根目錄執行 `python wordwall.py doctor --pdf`。
 2. 若 `doctor` 回報缺少元件，照它列出的命令安裝；Windows 可用 `.\setup.ps1 -WithPdf`。
-3. 若尚未登入，請使用者本人執行 `python wordwall.py login`。不可索取或代填密碼。
+3. 若尚未登入，執行 `python wordwall.py chrome-login`，請使用者本人在專用 Chrome 登入，再執行 `python wordwall.py grab-session`。不可索取或代填密碼。
 4. 執行 `python wordwall.py doctor --login --pdf` 驗證後才進行正式建立／指派／下載。
 5. `~/.wordwall/state.json` 是每位使用者自己的 session，不可複製到 repo 或交給他人。
 
@@ -117,20 +120,21 @@ python -m pip install -r requirements-pdf.txt
 先輸出整頁確認座標，再用 `--crop x0,y0,x1,y1` 裁切；座標單位為 PDF 點。
 上傳前必須目視確認題幹、選項、數學符號與幾何圖完整。
 
-## 登入方式(Google 會擋自動化瀏覽器)
+## 登入方式
 
-Google 會封鎖 Playwright 這類自動化瀏覽器的登入,所以:
-- **首選 `grab-session`**:你在真實 Chrome 登入 wordwall.net(除錯埠模式),工具把 session 複製過來。
-  1. 完全關閉 Chrome,用除錯埠重開:
-     `& "C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="$env:TEMP\ww-debug"`
-     (近版 Chrome 一定要加 `--user-data-dir`,會開一個獨立乾淨視窗)
-  2. 在那個 Chrome 登入 wordwall.net。
+- **首選 `chrome-login` → `grab-session`**：
+  1. `python wordwall.py chrome-login`
+  2. 使用者本人在專用真實 Chrome 登入 Wordwall(Google 或 Email 皆可)。
   3. `python wordwall.py grab-session`
-- 次選 `login`:用 Wordwall 自己的 **Email + 密碼**登入(不要點 Sign in with Google)。
+- `chrome-login` 預設使用本工具專用 profile 與埠 `9333`；埠被占用時會拒絕連線，
+  改用 `python wordwall.py chrome-login --port 9334`。不得擅自連接其他工具的 Chrome。
+- `login` 只供可互動 PowerShell 使用 Email 登入；非互動終端會在開啟瀏覽器前安全退出，
+  Agent 應改走首選流程。
+- `grab-session --cdp-url <網址>` 僅供進階使用；必須確認該 Chrome 是使用者本人為此次登入開啟。
 
 ## ✅ 目前狀態
 
-- `login` / `grab-session` / `check` / `templates` / `inspect`:**已可運作**。
+- `chrome-login` / `login` / `grab-session` / `check` / `templates` / `inspect`:**已可運作**。
 - `doctor` / `pdf-screenshot`:**已可運作**，缺少元件時會給出安裝命令。
 - `create`：Quiz 六種、Pair 四種、Group sort、Speed sorting、Speaking cards、
   Spin the wheel／Random wheel 簡易模式、Complete the sentence 均已通過真實編輯器不儲存驗證。
