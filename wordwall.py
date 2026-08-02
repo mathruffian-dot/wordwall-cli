@@ -19,7 +19,11 @@ Agent 透過終端機呼叫它,搭配同資料夾的 SKILL.md 就知道何時、
 import argparse
 import importlib.util
 import json
+import os
 import re
+import shutil
+import socket
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -30,6 +34,9 @@ from wordwall_catalog import TEMPLATE_CATALOG, recommend_templates
 # ---- 路徑設定 ----
 CONFIG_DIR = Path.home() / ".wordwall"
 STATE_FILE = CONFIG_DIR / "state.json"          # 登入後的 session(cookies 等)
+CHROME_LOGIN_FILE = CONFIG_DIR / "chrome-login.json"
+CHROME_LOGIN_PROFILE = CONFIG_DIR / "chrome-login-profile"
+DEFAULT_CDP_PORT = 9333
 DEBUG_DIR = Path(__file__).resolve().parent / "debug"
 BASE = "https://wordwall.net"
 
@@ -59,6 +66,87 @@ def _need_playwright():
             "    python -m pip install -r requirements.txt\n"
             "    python -m playwright install chromium\n"
             "或在 Windows PowerShell 執行: .\\setup.ps1")
+
+
+def _interactive_login_help() -> str:
+    """回傳 login 無法互動時的安全替代流程。"""
+    return (
+        "login 必須在可互動的 PowerShell 執行，因為登入後需要按 Enter。\n"
+        "若由 Codex 或其他非互動終端操作，請改用:\n"
+        "    python wordwall.py chrome-login\n"
+        "    # 在開啟的真實 Chrome 由本人登入 Wordwall\n"
+        "    python wordwall.py grab-session"
+    )
+
+
+def _find_chrome(chrome_path: str | None = None) -> Path:
+    """尋找 Chrome 執行檔；明確指定時不做猜測。"""
+    if chrome_path:
+        candidate = Path(chrome_path).expanduser().resolve()
+        if candidate.is_file():
+            return candidate
+        die(f"找不到指定的 Chrome: {candidate}", code=4)
+    for name in ("chrome.exe", "chrome", "google-chrome", "google-chrome-stable"):
+        found = shutil.which(name)
+        if found:
+            return Path(found).resolve()
+    candidates = []
+    if sys.platform == "win32":
+        for variable in ("PROGRAMFILES", "PROGRAMFILES(X86)", "LOCALAPPDATA"):
+            root = os.environ.get(variable)
+            if root:
+                candidates.append(Path(root) / "Google" / "Chrome" / "Application" / "chrome.exe")
+    elif sys.platform == "darwin":
+        candidates.append(Path("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"))
+    else:
+        candidates.extend((Path("/usr/bin/google-chrome"), Path("/usr/bin/google-chrome-stable")))
+    for candidate in candidates:
+        if candidate.is_file():
+            return candidate.resolve()
+    die("找不到 Google Chrome。請安裝 Chrome，或用 --chrome-path 指定執行檔。", code=4)
+
+
+def _port_is_available(port: int) -> bool:
+    """確認本機除錯埠尚未被其他工具占用。"""
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as probe:
+            probe.bind(("127.0.0.1", port))
+        return True
+    except OSError:
+        return False
+
+
+def _resolve_grab_session_cdp_url(explicit_url: str | None) -> str:
+    """只連使用者明確指定或本工具自己啟動並記錄的 Chrome。"""
+    if explicit_url:
+        return explicit_url.rstrip("/")
+    if not CHROME_LOGIN_FILE.is_file():
+        die("找不到本工具啟動的 Chrome 紀錄。請先執行:\n"
+            "    python wordwall.py chrome-login\n"
+            "本人登入完成後，再執行 python wordwall.py grab-session。", code=4)
+    try:
+        metadata = json.loads(CHROME_LOGIN_FILE.read_text(encoding="utf-8"))
+        port = int(metadata["port"])
+    except (OSError, ValueError, TypeError, KeyError, json.JSONDecodeError):
+        die(f"Chrome 登入紀錄已損壞: {CHROME_LOGIN_FILE}\n"
+            "請重新執行 python wordwall.py chrome-login。", code=4)
+    if port < 1 or port > 65535:
+        die(f"Chrome 登入紀錄中的埠號無效: {port}\n"
+            "請重新執行 python wordwall.py chrome-login。", code=4)
+    try:
+        profile = Path(metadata["profile_dir"]).expanduser().resolve()
+        active_port_file = profile / "DevToolsActivePort"
+        active_port = int(active_port_file.read_text(
+            encoding="utf-8").splitlines()[0])
+    except (OSError, ValueError, TypeError, KeyError, IndexError):
+        die("找不到本工具專用 Chrome 的有效 DevToolsActivePort。\n"
+            "請確認 Chrome 仍開著，或重新執行 python wordwall.py chrome-login。",
+            code=4)
+    if active_port != port:
+        die("Chrome 登入紀錄與專用 profile 的實際埠不一致。為避免抓到其他工具的 "
+            "session，本工具拒絕連線。\n"
+            "請重新執行 python wordwall.py chrome-login。", code=4)
+    return f"http://127.0.0.1:{port}"
 
 
 def _missing_pdf_packages() -> list[str]:
@@ -445,6 +533,8 @@ def _deadline_for_wordwall(value: str) -> str:
 # ======================================================================
 def cmd_login(args):
     """開瀏覽器讓「使用者本人」手動登入,再把 session 存起來重複使用。"""
+    if not sys.stdin.isatty() or not sys.stdout.isatty():
+        die(_interactive_login_help(), code=2)
     sync_playwright = _need_playwright()
     CONFIG_DIR.mkdir(exist_ok=True)
     with sync_playwright() as p:
@@ -454,13 +544,17 @@ def cmd_login(args):
         page.goto(f"{BASE}/", wait_until="domcontentloaded")
         print("=" * 60)
         print("請在剛開啟的瀏覽器視窗『手動登入』Wordwall。")
-        print("⚠️ 請用『Email + 密碼』登入,不要點『Sign in with Google』——")
+        print("[注意] 請用『Email + 密碼』登入,不要點『Sign in with Google』——")
         print("   Google 會封鎖自動化瀏覽器的登入。若你的帳號只有 Google,")
         print("   請先在登入頁用『Forgot password』設一組密碼,或改用 grab-session。")
         print("(本程式不會、也看不到你的密碼)")
         print("登入完成、看到你的活動清單後,回到這個終端機按 Enter……")
         print("=" * 60)
-        input()
+        try:
+            input()
+        except EOFError:
+            browser.close()
+            die(_interactive_login_help(), code=2)
         ctx.storage_state(path=str(STATE_FILE))
         print(f"[完成] 已把登入狀態存到:{STATE_FILE}")
         print("之後其他指令會自動沿用這個登入,不必再登。過期了再跑一次 login 即可。")
@@ -468,27 +562,61 @@ def cmd_login(args):
 
 
 # ======================================================================
-# 指令:grab-session —— 已可運作(繞過 Google 對自動化瀏覽器的封鎖)
+# 指令:chrome-login / grab-session —— 使用真實 Chrome 安全登入
 # ======================================================================
+def cmd_chrome_login(args):
+    """啟動本工具專用的真實 Chrome，由使用者本人登入 Wordwall。"""
+    if args.port < 1 or args.port > 65535:
+        die("--port 必須介於 1 到 65535。", code=4)
+    if not _port_is_available(args.port):
+        next_port = args.port + 1 if args.port < 65535 else DEFAULT_CDP_PORT
+        die(f"連接埠 {args.port} 已被其他程式占用，為避免抓到別的 Chrome session，"
+            "本工具不會連線。\n"
+            f"請改用: python wordwall.py chrome-login --port {next_port}", code=4)
+    chrome_path = _find_chrome(args.chrome_path)
+    profile = Path(args.profile_dir).expanduser().resolve()
+    profile.mkdir(parents=True, exist_ok=True)
+    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    command = [str(chrome_path), f"--remote-debugging-port={args.port}",
+               f"--user-data-dir={profile}", "--no-first-run", "--new-window",
+               f"{BASE}/account/login"]
+    creationflags = 0
+    if sys.platform == "win32":
+        creationflags = subprocess.CREATE_NEW_PROCESS_GROUP | subprocess.DETACHED_PROCESS
+    try:
+        process = subprocess.Popen(command, stdout=subprocess.DEVNULL,
+                                   stderr=subprocess.DEVNULL,
+                                   creationflags=creationflags)
+    except OSError as error:
+        die(f"無法啟動 Chrome: {error}", code=4)
+    metadata = {"port": args.port, "profile_dir": str(profile),
+                "chrome_path": str(chrome_path), "pid": process.pid,
+                "created_at": datetime.now().isoformat(timespec="seconds")}
+    CHROME_LOGIN_FILE.write_text(json.dumps(metadata, ensure_ascii=False, indent=2),
+                                 encoding="utf-8")
+    print(f"[完成] 已開啟 Wordwall 專用 Chrome（埠 {args.port}）。")
+    print(f"專用個人資料夾: {profile}")
+    print("請由本人在該視窗登入 Wordwall；看到活動清單後執行:")
+    print("    python wordwall.py grab-session")
+
+
 def cmd_grab_session(args):
     """從『你已登入的真實 Chrome』複製 Wordwall 登入狀態,存成本工具的 session。
 
     這條路不自動化登入,所以 Google 不會擋。步驟:
-      1. 完全關閉所有 Chrome 視窗。
-      2. 用除錯埠重開 Chrome(PowerShell):
-         & "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" --remote-debugging-port=9222
-      3. 在那個 Chrome 裡確定已登入 wordwall.net(平常怎麼登都行,含 Google)。
-      4. 執行:python wordwall.py grab-session
+      1. 執行:python wordwall.py chrome-login
+      2. 在專用 Chrome 裡登入 wordwall.net(可用 Google 或 Email)。
+      3. 執行:python wordwall.py grab-session
     """
+    cdp_url = _resolve_grab_session_cdp_url(args.cdp_url)
     sync_playwright = _need_playwright()
     CONFIG_DIR.mkdir(exist_ok=True)
     with sync_playwright() as p:
         try:
-            browser = p.chromium.connect_over_cdp(args.cdp_url)
+            browser = p.chromium.connect_over_cdp(cdp_url)
         except Exception as e:  # noqa
-            die(f"連不上你的 Chrome({args.cdp_url})。\n"
-                f"     請先『完全關閉 Chrome』,再用除錯埠重開:\n"
-                f'     & "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" --remote-debugging-port=9222\n'
+            die(f"連不上 Wordwall 專用 Chrome({cdp_url})。\n"
+                "     請重新執行 python wordwall.py chrome-login，登入後再試。\n"
                 f"     原始錯誤:{e}", code=4)
         if not browser.contexts:
             die("連上了 Chrome,但找不到任何分頁 context。請確認 Chrome 有開著網頁。", code=4)
@@ -1482,13 +1610,22 @@ def build_parser():
                           help="只檢查套件，不實際啟動 Chromium")
     p_doctor.set_defaults(func=cmd_doctor)
 
-    p_login = sub.add_parser("login", help="開瀏覽器手動登入並存下 session")
+    p_login = sub.add_parser("login", help="在互動終端開瀏覽器手動登入並存下 session")
     p_login.set_defaults(func=cmd_login)
+
+    p_chrome_login = sub.add_parser(
+        "chrome-login", help="開啟本工具專用的真實 Chrome，供本人登入")
+    p_chrome_login.add_argument("--port", type=int, default=DEFAULT_CDP_PORT,
+                                help=f"Chrome 除錯埠（預設 {DEFAULT_CDP_PORT}；占用時請換一個）")
+    p_chrome_login.add_argument("--profile-dir", default=str(CHROME_LOGIN_PROFILE),
+                                help=f"專用 Chrome 個人資料夾（預設 {CHROME_LOGIN_PROFILE}）")
+    p_chrome_login.add_argument("--chrome-path", help="選用 Chrome 執行檔路徑")
+    p_chrome_login.set_defaults(func=cmd_chrome_login)
 
     p_grab = sub.add_parser("grab-session",
                             help="從你已登入的真實 Chrome 複製 Wordwall session(繞過 Google 封鎖)")
-    p_grab.add_argument("--cdp-url", default="http://localhost:9222",
-                        help="Chrome 除錯埠網址(預設 http://localhost:9222)")
+    p_grab.add_argument("--cdp-url",
+                        help="進階用法：明確指定既有 Chrome 除錯網址；省略時只讀本工具 chrome-login 紀錄")
     p_grab.set_defaults(func=cmd_grab_session)
 
     p_check = sub.add_parser("check", help="檢查登入是否還有效")

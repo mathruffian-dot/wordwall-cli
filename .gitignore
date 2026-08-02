@@ -12,6 +12,8 @@ __pycache__/
 .wordwall/
 state.json
 storage_state.json
+chrome-login.json
+chrome-login-profile/
 
 # 敏感資料
 .env

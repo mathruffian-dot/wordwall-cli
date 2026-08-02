@@ -57,24 +57,31 @@ Set-ExecutionPolicy -Scope Process -Bypass
 
 登入狀態存在**你自己電腦**的 `C:\Users\<你>\.wordwall\state.json`,**不能共用別人的**。
 
-### 方式 A(最簡單):Email + 密碼
+### 方式 A(建議):專用真實 Chrome
+
+```powershell
+python wordwall.py chrome-login
+# 在開啟的專用 Chrome 由本人登入 Wordwall(Google 或 Email 皆可)
+python wordwall.py grab-session
+```
+
+工具預設使用 `~/.wordwall/chrome-login-profile` 與埠 `9333`，不會連接一般 Chrome、
+NotebookLM 或其他工具的瀏覽器工作階段。若 9333 已被占用，工具會拒絕連線；改用：
+
+```powershell
+python wordwall.py chrome-login --port 9334
+python wordwall.py grab-session
+```
+
+### 方式 B:互動式 Email 登入
 
 ```powershell
 python wordwall.py login
 ```
 
-在跳出的視窗用 **Email + 密碼**登入,**不要點 Sign in with Google**(Google 會封鎖自動化瀏覽器)。
-只有 Google 帳號、沒設過密碼?→ 在登入頁點「Forgot password」用信箱設一組密碼。
-
-### 方式 B:借用真實 Chrome 的登入(想繼續用 Google 就走這條)
-
-```powershell
-# 1) 完全關閉 Chrome,再用除錯埠重開(近版 Chrome 一定要加 --user-data-dir)
-& "C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir="$env:TEMP\ww-debug"
-# 2) 在跳出的乾淨 Chrome 視窗登入 wordwall.net(Google 或 Email 都行)
-# 3) 回 PowerShell 執行:
-python wordwall.py grab-session
-```
+這個方式只適用可互動的 PowerShell，登入後需回到終端按 Enter。請使用 Wordwall
+**Email + 密碼**，不要選 Google。Codex 等非互動終端會在開瀏覽器前安全退出並提示方式 A，
+不再出現 `EOFError` 或視窗開啟後立刻關閉。
 
 ### 驗證登入
 
@@ -178,12 +185,13 @@ cd wordwall-cli
 pip install -r requirements.txt
 python -m playwright install chromium
 python -m pip install -r requirements-pdf.txt  # 需要 PDF 截圖時才裝
-python wordwall.py login          # 或 grab-session
+python wordwall.py chrome-login
+# 在開啟的 Chrome 登入後
+python wordwall.py grab-session
 python wordwall.py doctor --login --pdf
 ```
 
-除錯 Chrome 指令的路徑改成你系統的 Chrome(Mac 例:
-`/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --remote-debugging-port=9222 --user-data-dir=/tmp/ww-debug`)。
+找不到 Chrome 時可用 `chrome-login --chrome-path <Chrome執行檔>` 明確指定路徑。
 
 ---
 
@@ -193,8 +201,9 @@ python wordwall.py doctor --login --pdf
 |---|---|
 | `找不到 python` | 裝 Python 並勾 Add to PATH,重開 PowerShell |
 | `尚未安裝 Playwright`(明明裝過) | 裝到別的 python 了;用 `(Get-Command python).Source` 對齊,再重跑 `setup.ps1` |
-| Google 登入頁說「這個瀏覽器可能有安全疑慮」 | 正常,Google 擋自動化;改用方式 A(Email)或方式 B(grab-session) |
-| `除錯埠 9222 連不上` | Chrome 沒完全關就重開、或忘了加 `--user-data-dir`;關乾淨再重開 |
+| Google 登入頁說「這個瀏覽器可能有安全疑慮」 | 改用 `chrome-login` 開啟的真實 Chrome，再執行 `grab-session`。 |
+| `chrome-login` 顯示埠被占用 | 不要連用中的埠；改執行 `python wordwall.py chrome-login --port 9334`。 |
+| `login` 出現非互動終端提示 | 使用 `chrome-login` → 本人登入 → `grab-session`；不要由背景 shell 等待 Enter。 |
 | 建活動時選擇器對不上 | Wordwall 改版了;跑 `python wordwall.py inspect --url https://wordwall.net/create` 重新校正 |
 | `PDF 截圖元件` 缺少 | 執行 `python -m pip install -r requirements-pdf.txt`，或 Windows 執行 `.\setup.ps1 -WithPdf` |
-| `doctor` 顯示尚未登入 | 執行 `python wordwall.py login`，由使用者本人在瀏覽器登入 |
+| `doctor` 顯示尚未登入 | 執行 `chrome-login`，本人登入後再執行 `grab-session`。 |
