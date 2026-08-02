@@ -10,7 +10,20 @@ __pycache__/
 state.json
 storage_state.json
 
+# 敏感資料
+.env
+.env.*
+*.key
+credentials.*
+secrets.*
+
+# AI Agent 本機設定
+.claude/
+.codex/
+
 # 系統檔
 desktop.ini
 .DS_Store
 Thumbs.db
+*.tmp
+~$*
