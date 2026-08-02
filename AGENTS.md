@@ -14,7 +14,7 @@
 
 - [x] 建立 CLI、Skill、Windows 安裝腳本與 Quiz JSON 範例
 - [x] Quiz 建立流程完成第一版
-- [ ] 在目前環境重新實測登入檢查與 Quiz 建立
+- [x] 在目前環境重新實測登入檢查與 Quiz 建立
 - [ ] 擴充 Match up 等其他範本
 - [ ] 校正 `assign` 作業指派流程
 - [ ] 校正 `results` 成績讀取流程

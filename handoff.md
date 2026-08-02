@@ -4,7 +4,7 @@
 
 ## ⏯️ 目前做到哪
 
-已將 `mathruffian-dot/wordwall-cli` 複製到本機 Google Drive 工作目錄並完成三層級初始化。CLI 範本列表與 Wordwall 登入檢查皆已通過，目前等待使用者確認測試 Quiz。
+已完成三層級初始化與 Wordwall 真實 Quiz 實測。活動 `Wordwall CLI 實測｜國中數學 3 題` 已成功建立，資源 ID 為 `116905237`。
 
 ## 🚦 目前狀態
 
@@ -15,12 +15,14 @@
 - Wordwall session：偵測到 `%USERPROFILE%\.wordwall\state.json`，已由 `python wordwall.py check` 驗證有效
 - `create`：Quiz 已有實作；其他範本尚未完成
 - `assign`、`results`：仍為待校正佔位流程
+- 實測活動：`https://wordwall.net/resource/116905237/wordwall-cli-實測國中數學-3-題`
+- 活動可見性：Private resource；登入擁有者帳號可正常開啟
 
 ## ➡️ 下一步
 
-1. 等待使用者確認測試 Quiz 的活動名稱、題目與正確答案。
-2. 確認後執行 `create` 建立真實活動。
-3. 回讀活動網址，確認建立結果。
+1. 決定是否要把實測活動公開或設定成學生作業。
+2. 若要分享給學生，實作或校正 `assign` 流程。
+3. 統一 README、SKILL 與程式註解中的 Quiz 支援狀態。
 
 ## ⚠️ 注意事項
 
@@ -31,9 +33,6 @@
 
 ## 🕐 最後更新
 
-- 時間：2026-08-02 17:35
+- 時間：2026-08-02 17:45
 - 更新者：Codex @ 三師爸SENSEBAR
 - Git push：✅ 已推
-
-
-

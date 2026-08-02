@@ -1,0 +1,21 @@
+{
+  "template": "quiz",
+  "title": "Wordwall CLI 實測｜國中數學 3 題",
+  "items": [
+    {
+      "question": "3² 等於多少？",
+      "answers": ["6", "9", "12", "18"],
+      "correct": 1
+    },
+    {
+      "question": "y = 2x + 1，當 x = 3 時，y 等於多少？",
+      "answers": ["5", "6", "7", "8"],
+      "correct": 2
+    },
+    {
+      "question": "三角形兩角為 50°、60°，第三角是多少？",
+      "answers": ["60°", "70°", "80°", "90°"],
+      "correct": 1
+    }
+  ]
+}
