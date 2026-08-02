@@ -1,0 +1,10 @@
+{
+  "template": "true_or_false",
+  "title": "數學是非快問快答",
+  "items": [
+    {"statement": "2 是質數", "correct": true},
+    {"statement": "9 是質數", "correct": false},
+    {"statement": "三角形內角和是 180 度", "correct": true, "image": "geometry_question.png"},
+    {"statement": "正方形只有一組平行邊", "correct": false}
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "template": "group_sort",
+  "title": "數學概念分類",
+  "groups": [
+    {
+      "title": "質數",
+      "items": [
+        {"text": "2", "image": "geometry_question.png"},
+        "3",
+        "5"
+      ]
+    },
+    {
+      "title": "合數",
+      "items": ["4", "6", "8"]
+    }
+  ]
+}

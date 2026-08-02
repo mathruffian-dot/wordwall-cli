@@ -1,6 +1,12 @@
 # Wordwall CLI + Skill
 
-用 CLI 的方式(不是 MCP server)讓 Claude Code 用自然語言操作 [Wordwall](https://wordwall.net)。
+用 CLI 的方式(不是 MCP server)讓 Codex、Claude Code 或其他 Agent 操作
+[Wordwall](https://wordwall.net)。每位使用者在自己的電腦安裝，並登入自己的帳號；repo 不包含任何帳密或 session。
+
+第一次使用請先閱讀：[完整使用說明](docs/USER_GUIDE.md)；只需要安裝步驟可閱讀
+[安裝指南](INSTALL.md)。
+
+視覺化操作網站：[Wordwall CLI 使用指南](https://mathruffian-dot.github.io/wordwall-cli/)
 
 ## 為什麼是 CLI + Skill 而不是 MCP?
 
@@ -10,49 +16,184 @@ Wordwall 既沒有公開 API、也沒有官方 CLI,只能靠瀏覽器自動化(P
 - 不必跑常駐 server、不走 MCP 協定
 - 工具定義不佔 Claude 的 context(用到才讀 SKILL.md)
 - 改壞了只要改 `wordwall.py` 這一支
-- Claude Code 直接用 bash 呼叫
+- Claude Code 或 Codex 直接用 PowerShell 呼叫
 
-## 安裝(每台電腦一次)
+## 最快開始（Windows PowerShell）
 
-```bash
+```powershell
+git clone https://github.com/mathruffian-dot/wordwall-cli.git
 cd wordwall-cli
-pip install -r requirements.txt
-playwright install chromium
-python wordwall.py login      # 開瀏覽器,你「自己」手動登入(Google 或 Email 皆可)
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\setup.ps1 -WithPdf
+python wordwall.py login
+python wordwall.py doctor --login --pdf
 ```
 
-> 安全:本工具不會、也看不到你的帳號密碼。`login` 只是開一個瀏覽器視窗讓你本人登入,
-> 再把登入後的 session 存到 `~/.wordwall/state.json` 重複使用。過期就再跑一次 `login`。
+不需要 PDF 截圖時可只執行 `.\setup.ps1`。想安裝完成後立刻開啟登入視窗，可用
+`.\setup.ps1 -WithPdf -Login`。
+
+> 安全：本工具不會、也看不到你的帳號密碼。`login` 只開啟瀏覽器，必須由使用者本人操作；
+> session 只存於該使用者電腦的 `~/.wordwall/state.json`，不得放入 GitHub。
+
+## Agent 首次執行規則
+
+Agent 拿到 repo 後，先執行：
+
+```powershell
+python wordwall.py doctor --pdf
+```
+
+若缺少套件，`doctor` 會列出可直接執行的安裝命令。安裝完成但尚未登入時，Agent 應請使用者本人執行
+`python wordwall.py login`，不可索取、代填或記錄帳號密碼。登入完成後再執行：
+
+```powershell
+python wordwall.py doctor --login --pdf
+```
 
 ## 指令
 
 | 指令 | 狀態 | 說明 |
 |---|---|---|
+| `doctor [--login] [--pdf]` | ✅ 可運作 | 診斷 Python、Playwright、Chromium、本人登入與 PDF 選用元件 |
 | `login` | ✅ 可運作 | 手動登入並存 session(用 Wordwall Email 登入,勿用 Google) |
 | `grab-session` | ✅ 可運作 | 從真實 Chrome(除錯埠)複製登入,繞過 Google 對自動化的封鎖 |
 | `check` | ✅ 可運作 | 檢查登入是否有效 |
 | `templates` | ✅ 可運作 | 列出支援的範本代號 |
+| `recommend` | ✅ 可運作 | 依遊戲名稱、schema 與媒體型態推薦範本 |
+| `plan --request "..."` | ✅ 可運作 | 自然語言選型、三級素材決策與內容／素材預檢 |
 | `inspect --url <網址>` | ✅ 可運作 | 登入後 dump 頁面 DOM,用來校正選擇器 |
-| `create --content x.json` | ✅ Quiz 已實測 | 依內容 JSON 建活動(quiz 已跑通;其他範本待補) |
-| `assign --activity-url <網址>` | 🔧 待校正 | 設成學生作業、拿分享連結 |
-| `results` | 🔧 待校正 | 抓學生作答結果 |
+| `create --content x.json` | ✅ 可運作 | 建立 Quiz、配對、分類、簡易轉盤／卡片與句子填空 |
+| `create --content x.json --dry-run` | ✅ 可運作 | 只驗證 JSON、答案與圖片路徑 |
+| `create --content x.json --editor-check` | ✅ 可運作 | 填入 Wordwall 編輯器並回讀，但不按 Done |
+| `pdf-screenshot` | ✅ 可運作 | 將 PDF 整頁或指定區域渲染為題目 PNG |
+| `assign --activity-url <網址>` | ✅ 已實測 | 設成學生作業、取得學生連結 |
+| `results list` | ✅ 可運作 | 列出作業 ID、名稱與作答人數,不讀學生姓名 |
+| `results export` | ✅ 已實測 | 匯出指定作業的 Excel / CSV |
 
-## 目前狀態:骨架已成,選擇器待「登入實測」
+## PDF 截圖題
 
-**能跑的部分現在就能跑**(login / check / templates / inspect)。
+PDF 功能是選用元件。若尚未安裝，CLI 會提示：
 
-`create` / `assign` / `results` 這三個依賴「登入後編輯畫面」的指令,其 DOM 選擇器
-**尚未校正**(程式裡標了 `TODO(需實測)`),因為那些畫面藏在登入牆後面,沒有登入的
-session 拿不到真實結構。要讓它們真的能動,做一次校正即可:
-
-```bash
-python wordwall.py login                                   # 1. 手動登入
-python wordwall.py inspect --url https://wordwall.net/create   # 2. dump 建立頁 DOM
-# 3. 依 dump 出來的元素,校正 wordwall.py 裡 _click_template / _fill_content / _save_and_get_url
-# 4. 先把 quiz 範本跑通,再擴充其他範本
+```powershell
+python -m pip install -r requirements-pdf.txt
 ```
 
-失敗時,腳本會自動把截圖與 HTML 存到 `debug/`,拿那個對照校正選擇器最快。
+輸出整頁 PNG：
+
+```powershell
+python wordwall.py pdf-screenshot `
+  --input "C:\題本.pdf" --page 2 `
+  --output "assets\questions\page2.png"
+```
+
+裁切指定區域（座標單位為 PDF 點，順序為 `x0,y0,x1,y1`）：
+
+```powershell
+python wordwall.py pdf-screenshot `
+  --input "C:\題本.pdf" --page 2 `
+  --crop "55,75,540,215" `
+  --output "assets\questions\q01.png"
+```
+
+先輸出整頁確認座標，再裁切；建立 Wordwall 前仍須目視確認題幹、圖形與選項完整。
+
+## 圖片題
+
+每一題可用 `image` 指定 PNG、JPG 等本機圖片。相對路徑以 JSON 所在資料夾為準:
+
+```json
+{
+  "template": "quiz",
+  "title": "幾何圖片題",
+  "items": [{
+    "question": "請看圖作答",
+    "image": "geometry_question.png",
+    "answers": ["A", "B", "C", "D"],
+    "correct": 2
+  }]
+}
+```
+
+先 dry-run,確認後再建立:
+
+```powershell
+python wordwall.py create --content examples\image_quiz_example.json --dry-run
+python wordwall.py create --content examples\image_quiz_example.json --headless
+```
+
+Quiz 的題幹及每個答案、Pair 的左右兩端，都能使用共用媒體物件：
+
+```json
+{ "text": "可選文字", "image": "圖片.png" }
+```
+
+目前已可建立的家族：
+
+- `quiz`：Quiz、Gameshow quiz、Maze chase、Flying fruit、Airplane、Win or lose quiz。
+- `pair`：Match up、Find the match、Flash cards、Balloon pop。
+- `group`：Group sort、Speed sorting。
+- `single`：Speaking cards、Spin the wheel／Random wheel 的簡易模式。
+- `cloze`：Complete the sentence；用 `{{答案}}` 標記，每頁目前支援一個缺口。
+- `fixed_group`：True or false。
+- `pair_mode`：Matching pairs 的相同物品與不同物品兩種模式。
+- `single` 擴充：Open the box 簡易模式、Rank order。
+- `diagram`：Labelled diagram，使用 0 到 1 的 `x/y` 座標定位 pin。
+
+對應範例：`examples/group_sort_example.json`、`examples/single_list_example.json`、
+`examples/complete_sentence_example.json`。
+
+## 圖片生成預設
+
+公開 repo 預設使用 **ChatGPT 訂閱方案內建生圖**，不要求 API key，也不依賴某個
+維護者電腦上的私人技能。已有題庫圖片或 PDF 時優先使用原素材；需要新圖時由 Agent
+使用所在 ChatGPT／Codex 環境的內建生圖能力。完整規則見
+[docs/IMAGE_GENERATION.md](docs/IMAGE_GENERATION.md)。
+
+## 自然語言與三級出題規劃
+
+```powershell
+python wordwall.py plan --request "用 AI 生圖製作漫畫解謎選擇題"
+
+python wordwall.py plan `
+  --request "幾何圖形選擇題，選項只能用圖片判別" `
+  --content examples\image_quiz_example.json `
+  --assets examples\asset_manifest_screenshot.json
+```
+
+規劃器會採用最低足夠層級：純文字、截圖或 AI 生成圖片。第三級只有故事、漫畫、
+解謎、多視角、遮擋、影子／倒影、狀態變化等創意必要需求才會通過；精準幾何或座標圖
+會降回截圖。完整規格見 [docs/QUESTION_LEVELS.md](docs/QUESTION_LEVELS.md)。
+
+完整範本分類與後續開發狀態見 [docs/TEMPLATE_CAPABILITIES.md](docs/TEMPLATE_CAPABILITIES.md)。
+
+## 指派作業
+
+```powershell
+python wordwall.py assign `
+  --activity-url "https://wordwall.net/resource/123456" `
+  --title "八年級幾何練習" `
+  --registration name `
+  --deadline 2026-08-31 `
+  --deadline-time 23:59 `
+  --dry-run --headless
+```
+
+確認設定後移除 `--dry-run`,CLI 會建立作業並回傳學生 `/play/` 連結。
+
+## 成績匯出
+
+```powershell
+# 先找作業 ID
+python wordwall.py results list --title "八年級幾何" --headless
+
+# dry-run 只確認目標,不下載學生資料
+python wordwall.py results export --assignment-id 123456 `
+  --format xlsx --output "C:\成績\八年級幾何" --dry-run --headless
+
+# 確認後移除 --dry-run
+```
+
+預設輸出在 `%USERPROFILE%\Downloads\wordwall-results`。不要把成績檔放進 repo。
 
 ## 邊界
 
@@ -60,6 +201,8 @@ python wordwall.py inspect --url https://wordwall.net/create   # 2. dump 建立�
   只自動化「建立活動 / 發作業 / 讀成績」這類管理型操作,那才是價值所在。
 - `results` 會碰到**學生個資**,使用前確認符合校方規範與 Wordwall 使用條款。
 - 送出、發布等不可逆動作,執行前先確認內容。
+- 圖片題在手機上可能縮小;一題一張、裁切緊密,並保留可讀字級。
+- Wordwall 改版造成選擇器失效時,用 `inspect` 重新校正;失敗證據會存到已忽略的 `debug/`。
 
 ## 檔案結構
 
@@ -68,9 +211,14 @@ wordwall-cli/
 ├── wordwall.py              # CLI 主程式
 ├── SKILL.md                 # 給 Claude Code 的技能說明(何時/如何呼叫)
 ├── requirements.txt
+├── requirements-pdf.txt     # PDF 截圖選用元件
+├── setup.ps1                # Windows 安裝器，可加 -WithPdf / -Login
 ├── README.md
 ├── examples/
 │   ├── quiz_example.json    # Quiz 內容格式範例
+│   ├── image_quiz_example.json
+│   ├── geometry_question.png
 │   └── matchup_example.json # Match up 內容格式範例
+├── tests/                   # 不登入 Wordwall 的單元測試
 └── debug/                   # 選擇器失敗時的截圖/HTML(自動產生)
 ```

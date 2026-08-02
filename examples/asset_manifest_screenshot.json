@@ -1,0 +1,15 @@
+{
+  "asset_level": "screenshot",
+  "generation_method": "existing-or-screenshot",
+  "source_files": ["geometry_question.png"],
+  "final_assets": [
+    {
+      "role": "composite-question",
+      "path": "geometry_question.png"
+    }
+  ],
+  "capture_finalized": true,
+  "math_verified": true,
+  "answer_leak_checked": true,
+  "mobile_checked": true
+}

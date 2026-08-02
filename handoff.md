@@ -1,38 +1,35 @@
-# 交接檔（handoff.md）
+# 開發交接
 
-> 任何 Agent 接手前必讀；詳細決策與踩坑放在 Obsidian `2026worldwall/專案工作流程.md`。
+## 已完成
 
-## ⏯️ 目前做到哪
+- Windows 安裝器與 `doctor` 環境診斷。
+- 使用者本人 `login`，以及真實 Chrome 的 `grab-session`。
+- 文字／圖片 Quiz 建立，並驗證正式 `/resource/` 網址。
+- 學生作業建立與 `/play/` 連結。
+- My Results 清單與 Excel 成績匯出。
+- PDF 整頁／區域截圖；依賴未安裝時顯示明確安裝指令。
+- 範本能力目錄、中文別名與 `recommend` 推薦指令。
+- Group sort／Speed sorting、Speaking cards、簡易轉盤與 Complete the sentence 建立器。
+- Complete the sentence 以 `{{答案}}` 標記，每頁目前支援一個缺口。
+- True or false、Open the box、Rank order、Matching pairs 雙模式與 Labelled diagram 建立器。
+- 公開生圖預設為 ChatGPT 訂閱方案內建能力；repo 不要求 API key 或私人 draw 技能。
+- `plan` 自然語言規劃器：三級素材決策、AI 必要性門檻、content／asset manifest 預檢。
+- `quiz` 家族共用建立器：題幹及答案選項皆支援圖片。
+- `pair` 家族共用建立器：左右兩端皆支援圖片。
+- `create --editor-check`：填入真實編輯器並回讀，但不發布。
 
-已完成三層級初始化與 Wordwall 真實 Quiz 實測。活動 `Wordwall CLI 實測｜國中數學 3 題` 已成功建立，資源 ID 為 `116905237`。
+## 尚未完成
 
-## 🚦 目前狀態
+- `group`、`single`、`clue`、`word`、`diagram` 建立器仍待開發。
+- Wordwall 非公開 API，網站改版後可能需要更新 Playwright 選擇器。
+- CSV 匯出程式路徑已完成，但應持續以不含敏感資料的作業做回歸驗證。
 
-- GitHub 遠端：`https://github.com/mathruffian-dot/wordwall-cli.git`
-- 分支：`master`
-- Python：3.14.3
-- Playwright Python 套件：已安裝
-- Wordwall session：偵測到 `%USERPROFILE%\.wordwall\state.json`，已由 `python wordwall.py check` 驗證有效
-- `create`：Quiz 已有實作；其他範本尚未完成
-- `assign`、`results`：仍為待校正佔位流程
-- 實測活動：`https://wordwall.net/resource/116905237/wordwall-cli-實測國中數學-3-題`
-- 活動可見性：Private resource；登入擁有者帳號可正常開啟
+## 接手檢查
 
-## ➡️ 下一步
+```powershell
+python wordwall.py doctor --login --pdf
+python -m py_compile wordwall.py
+python -m unittest discover -s tests -v
+```
 
-1. 決定是否要把實測活動公開或設定成學生作業。
-2. 若要分享給學生，實作或校正 `assign` 流程。
-3. 統一 README、SKILL 與程式註解中的 Quiz 支援狀態。
-
-## ⚠️ 注意事項
-
-- 建立活動是線上寫入，送出前必須確認題目與答案。
-- 不得 commit `%USERPROFILE%\.wordwall\state.json` 或 `debug/`。
-- README、SKILL 與程式註解對 Quiz 狀態的描述略有不一致，後續應統一。
-- `examples/matchup_example.json` 目前只是內容格式示例，程式尚未實作 Match up 填寫。
-
-## 🕐 最後更新
-
-- 時間：2026-08-02 17:45
-- 更新者：Codex @ 三師爸SENSEBAR
-- Git push：✅ 已推
+不要提交 `~/.wordwall/state.json`、`debug/` 或學生成績檔。

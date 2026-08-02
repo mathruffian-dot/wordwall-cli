@@ -1,0 +1,12 @@
+{
+  "template": "quiz",
+  "title": "Wordwall CLI 圖片題實測｜幾何 1 題",
+  "items": [
+    {
+      "question": "請看圖作答：BC 的長度是多少？",
+      "image": "geometry_question.png",
+      "answers": ["A", "B", "C", "D"],
+      "correct": 2
+    }
+  ]
+}

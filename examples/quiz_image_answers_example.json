@@ -1,0 +1,28 @@
+{
+  "template": "gameshow_quiz",
+  "title": "圖片題幹與圖片選項範例",
+  "items": [
+    {
+      "question": {
+        "text": "請看圖選出相同的圖形",
+        "image": "geometry_question.png"
+      },
+      "answers": [
+        {
+          "text": "A",
+          "image": "geometry_question.png"
+        },
+        {
+          "text": "B",
+          "image": "geometry_question.png"
+        }
+      ],
+      "correct": 0
+    },
+    {
+      "question": "第二題文字題",
+      "answers": ["正確答案", "錯誤答案"],
+      "correct": 0
+    }
+  ]
+}
