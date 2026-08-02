@@ -1,0 +1,10 @@
+{
+  "template": "matching_pairs",
+  "title": "數學不同物品翻牌配對",
+  "mode": "different",
+  "pairs": [
+    {"left": "三角形", "right": "3 條邊"},
+    {"left": "正方形", "right": "4 條等長邊"},
+    {"left": {"text": "圓", "image": "geometry_question.png"}, "right": "沒有頂點"}
+  ]
+}

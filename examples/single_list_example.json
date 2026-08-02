@@ -1,0 +1,12 @@
+{
+  "template": "spin_the_wheel",
+  "title": "數學隨機挑戰",
+  "mode": "simple",
+  "items": [
+    {"text": "說出一個質數", "image": "geometry_question.png"},
+    "畫一個銳角三角形",
+    "解釋什麼是中位數",
+    "舉出一組畢氏數",
+    "說出圓面積公式"
+  ]
+}

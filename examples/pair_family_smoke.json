@@ -1,0 +1,11 @@
+{
+  "template": "match_up",
+  "title": "Pair 家族不發布驗證",
+  "pairs": [
+    { "left": "A1", "right": "B1" },
+    { "left": "A2", "right": "B2" },
+    { "left": "A3", "right": "B3" },
+    { "left": "A4", "right": "B4" },
+    { "left": "A5", "right": "B5" }
+  ]
+}

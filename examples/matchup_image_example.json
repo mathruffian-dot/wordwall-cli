@@ -1,0 +1,28 @@
+{
+  "template": "match_up",
+  "title": "圖片配對範例",
+  "pairs": [
+    {
+      "left": "題目文字",
+      "right": {
+        "text": "答案圖片",
+        "image": "geometry_question.png"
+      }
+    },
+    {
+      "left": {
+        "text": "左側圖片",
+        "image": "geometry_question.png"
+      },
+      "right": "右側文字"
+    },
+    {
+      "left": {
+        "image": "geometry_question.png"
+      },
+      "right": {
+        "image": "geometry_question.png"
+      }
+    }
+  ]
+}

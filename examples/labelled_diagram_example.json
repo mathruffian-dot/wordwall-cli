@@ -1,0 +1,10 @@
+{
+  "template": "labelled_diagram",
+  "title": "幾何圖形標示",
+  "image": "geometry_question.png",
+  "labels": [
+    {"text": "左側重點", "image": "geometry_question.png", "x": 0.22, "y": 0.30},
+    {"text": "中央重點", "x": 0.50, "y": 0.52},
+    {"text": "右側重點", "x": 0.78, "y": 0.70}
+  ]
+}

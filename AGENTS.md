@@ -1,50 +1,39 @@
-# wordwall-cli（專案藍圖）
+# wordwall-cli Agent instructions
 
-> 本檔是跨 Agent 的專案入口。每次開工先讀本檔與 `handoff.md`。
+本 repo 是可攜式的 Wordwall CLI + Skill。目標是讓 Codex、Claude Code 或其他 Agent
+在使用者自己的電腦安裝環境、由使用者本人登入 Wordwall，之後建立活動、指派作業及匯出成績。
 
-## 專案簡介
+## 首次接手
 
-以 Python、Playwright 與 Skill，讓 AI Agent 透過自然語言建立及管理 Wordwall 教學活動。目前以 Quiz 建立流程為可用基線，再逐步擴充其他範本、作業指派與成績讀取。
+1. 先讀 `README.md`、`INSTALL.md`、`SKILL.md`。
+2. 執行 `python wordwall.py doctor --pdf`。
+3. 若缺少核心元件，Windows 使用 `.\setup.ps1`；需要 PDF 截圖時加 `-WithPdf`。
+4. 若尚未登入，請使用者本人執行 `python wordwall.py login`，再執行
+   `python wordwall.py doctor --login --pdf`。
 
-## 關鍵時程
+## 安全邊界
 
-<!-- 尚未指定 -->
+- 絕不索取、代填、記錄或提交 Wordwall 帳號密碼。
+- session 只存於目前使用者的 `~/.wordwall/state.json`，不得複製到 repo 或分享給他人。
+- `debug/` 可能包含帳號畫面；不得 commit。
+- 成績含學生資料；預設存於 repo 外，不在終端輸出學生姓名，不得 commit。
+- 正式建立活動、建立作業或下載學生成績前，確認使用者已授權該動作與目標。
 
-## 目標與路線圖
+## 開發與驗證
 
-- [x] 建立 CLI、Skill、Windows 安裝腳本與 Quiz JSON 範例
-- [x] Quiz 建立流程完成第一版
-- [x] 在目前環境重新實測登入檢查與 Quiz 建立
-- [ ] 擴充 Match up 等其他範本
-- [ ] 校正 `assign` 作業指派流程
-- [ ] 校正 `results` 成績讀取流程
+- Windows 範例一律使用 PowerShell；Mac / Linux 指令另列。
+- 核心依賴放 `requirements.txt`；PDF 選用依賴放 `requirements-pdf.txt`。
+- 選用功能缺少依賴時，必須提供可直接執行的安裝命令，不得只回傳 import traceback。
+- 修改後執行：`python -m py_compile wordwall.py` 及
+  `python -m unittest discover -s tests -v`。
+- 線上選擇器失敗時，用 `inspect` 與 `debug/` 證據校正，不憑猜測修改。
+- Quiz 是已驗證基線；其他 Wordwall 範本只有在實測後才能標示支援。
 
-## 專案入口
+## 主要入口
 
-- `README.md`：功能、狀態與使用方式
-- `INSTALL.md`：Windows 教師安裝指南
-- `SKILL.md`：AI Agent 操作規則
-- `wordwall.py`：Playwright CLI 主程式
-- `setup.ps1`：Windows 環境安裝與驗證
-- `examples/`：活動內容 JSON 範例
-- `handoff.md`：目前狀態與下一步
-
-## 同步層級（本專案初始化至第 3 層級）
-
-| 層級 | 平台 | 位置 | 讀取時機 |
-|---|---|---|---|
-| L1 | 本地（Google Drive） | `AGENTS.md`＋`handoff.md` | 每個 session |
-| L2 | GitHub | https://github.com/mathruffian-dot/wordwall-cli | 指定時 |
-| L3 | Obsidian | `2026worldwall/專案工作流程.md` | 有需要時 |
-
-## 固定規則
-
-- 所有回應與專案文件使用繁體中文；Windows 指令使用 PowerShell。
-- 不向使用者索取或自動填寫 Wordwall 帳號密碼。
-- Wordwall session 只能放在使用者本機的 `%USERPROFILE%\.wordwall\state.json`，不得進入 repo。
-- 建立、發布或指派真實活動前，先讓使用者確認題目、答案與活動名稱。
-- `results` 涉及學生資料；正式資料只使用班級代號與座號，不儲存學生姓名。
-- Wordwall 改版造成選擇器失效時，先用 `inspect` 取得 DOM 與 debug 證據，不憑猜測修改。
-- `debug/` 可能含帳號畫面或頁面內容，禁止 commit。
-- 開工先讀 `handoff.md`；收工更新 `handoff.md` 與 Obsidian 駕駛艙。
-- Google Drive 上的 Git repo 必須維持 `git config windows.appendAtomically false`。
+- `wordwall.py`：CLI 主程式
+- `setup.ps1`：Windows 安裝器
+- `requirements-pdf.txt`：PDF 截圖選用依賴
+- `SKILL.md`：Agent 使用流程
+- `examples/`：內容 JSON 範例
+- `tests/`：不寫入 Wordwall 的單元測試

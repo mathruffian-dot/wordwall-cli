@@ -1,0 +1,15 @@
+{
+  "template": "complete_the_sentence",
+  "title": "數學句子填空",
+  "pages": [
+    {
+      "sentence": "三角形的內角和是{{180度}}。",
+      "image": "geometry_question.png",
+      "wrong_answers": ["90度", "360度"]
+    },
+    {
+      "sentence": "{{正方形}}有四條等長的邊。",
+      "wrong_answers": ["三角形", "長方形"]
+    }
+  ]
+}
