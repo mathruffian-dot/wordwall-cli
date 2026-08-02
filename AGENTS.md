@@ -34,6 +34,8 @@
 
 - `wordwall.py`：CLI 主程式
 - `question_planner.py`：自然語言範本與三級素材規劃
+- Level 3 通過 AI 必要性門檻後，Agent 必須載入 `imagegen` skill、呼叫 `image_gen`
+  實際產圖並目視檢查；不得只寫 prompt 或靜默降級。
 - `wordwall_catalog.py`：範本能力目錄
 - `setup.ps1`：Windows 安裝器
 - `requirements-pdf.txt`：PDF 截圖選用依賴

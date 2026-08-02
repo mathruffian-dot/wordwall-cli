@@ -62,7 +62,12 @@ python wordwall.py plan --request "使用者的完整需求"
 ## 圖片生成預設
 
 - 優先使用使用者既有圖片或 PDF 截圖。
-- 需要新圖時，公開預設使用 ChatGPT 訂閱方案內建生圖，不要求 API key。
+- Level 3 通過 AI 必要性門檻且需要新圖時，**必須載入 `imagegen` skill 並呼叫
+  `image_gen` 內建工具實際產圖**；不得只撰寫 prompt、要求使用者自行產圖，或未說明就改成 Level 2。
+- 產圖後必須目視檢查定稿 PNG，再把實際 prompt 與
+  `generation_method=builtin-imagegen` 寫入 asset manifest。
+- 若目前環境沒有 `imagegen`／`image_gen`，停止 Level 3 建立並請使用者提供圖片或選擇降級；
+  不要求 API key。
 - 不得假設使用者安裝維護者的私人 `draw` 技能或擁有相同本機路徑。
 - 若目前環境另有使用者明確指定的生圖技能，可在本機覆寫，但不可把私人設定寫入 repo。
 - 詳見 `docs/IMAGE_GENERATION.md`。
