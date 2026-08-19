@@ -1,0 +1,79 @@
+name: 姊妹專案同步檢查
+
+# 防止「同一份檔案、兩個 repo」悄悄長歪。
+# 只比對兩邊**都存在**的檔案；一邊刻意刪掉的（例如 lite 版移除付費功能）不算問題。
+# 平台專屬檔案列在 EXCLUDE，不納入比對。
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 1 * * 1'   # 每週一 09:00（台灣時間）
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    name: 比對與 wordwall-cli-opencode 的共用檔案
+    runs-on: ubuntu-latest
+    env:
+      SISTER: wordwall-cli-opencode
+      MY_PREFIX: .
+      THEIR_PREFIX: .
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 取得姊妹專案
+        run: git clone --depth 1 "https://github.com/mathruffian-dot/$SISTER.git" /tmp/sister
+
+      - name: 比對
+        run: |
+          set -u
+          cat > /tmp/exclude.txt <<'EXC'
+.gitignore
+AGENTS.md
+INSTALL.md
+README.md
+SKILL.md
+docs/IMAGE_GENERATION.md
+docs/QUESTION_LEVELS.md
+docs/USER_GUIDE.md
+handoff.md
+question_planner.py
+tests/test_wordwall.py
+EXC
+
+          list() {  # $1=根目錄 → 相對路徑清單
+            ( cd "$1" 2>/dev/null || { echo "找不到目錄 $1" >&2; exit 2; }
+              find . -type f -not -path './.git/*' | sed 's|^\./||' | sort )
+          }
+
+          list "$MY_PREFIX"                 > /tmp/mine.txt
+          list "/tmp/sister/$THEIR_PREFIX"  > /tmp/theirs.txt
+          comm -12 /tmp/mine.txt /tmp/theirs.txt > /tmp/both.txt
+          grep -vxF -f /tmp/exclude.txt /tmp/both.txt > /tmp/check.txt || true
+
+          n=$(wc -l < /tmp/check.txt)
+          echo "共用檔案 $n 個（兩邊都有、且不在排除清單）"
+          [ "$n" -eq 0 ] && { echo "::warning::沒有任何共用檔案可比對，請確認前綴設定"; exit 0; }
+
+          drift=0
+          while read -r rel; do
+            a="$MY_PREFIX/$rel"; b="/tmp/sister/$THEIR_PREFIX/$rel"
+            if ! diff -q <(tr -d '\r' < "$a") <(tr -d '\r' < "$b") >/dev/null 2>&1; then
+              echo "::error file=$a::$rel 與 $SISTER 內容不同"
+              diff <(tr -d '\r' < "$a") <(tr -d '\r' < "$b") | head -15
+              drift=1
+            fi
+          done < /tmp/check.txt
+
+          if [ "$drift" -ne 0 ]; then
+            echo ""
+            echo "共用檔案已與 $SISTER 不同步。"
+            echo "若是刻意的平台差異，請把該檔案加進本 workflow 的 EXCLUDE 清單；"
+            echo "若是漏同步，請把正確版本複製到另一個 repo 後一起推送。"
+            exit 1
+          fi
+          echo "✅ $n 個共用檔案與 $SISTER 完全一致"
