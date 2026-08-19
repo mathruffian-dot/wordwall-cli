@@ -32,6 +32,7 @@ jobs:
         run: |
           set -u
           cat > /tmp/exclude.txt <<'EXC'
+          .github/workflows/sync-check.yml
           .gitignore
           AGENTS.md
           INSTALL.md
