@@ -32,18 +32,18 @@ jobs:
         run: |
           set -u
           cat > /tmp/exclude.txt <<'EXC'
-.gitignore
-AGENTS.md
-INSTALL.md
-README.md
-SKILL.md
-docs/IMAGE_GENERATION.md
-docs/QUESTION_LEVELS.md
-docs/USER_GUIDE.md
-handoff.md
-question_planner.py
-tests/test_wordwall.py
-EXC
+          .gitignore
+          AGENTS.md
+          INSTALL.md
+          README.md
+          SKILL.md
+          docs/IMAGE_GENERATION.md
+          docs/QUESTION_LEVELS.md
+          docs/USER_GUIDE.md
+          handoff.md
+          question_planner.py
+          tests/test_wordwall.py
+          EXC
 
           list() {  # $1=根目錄 → 相對路徑清單
             ( cd "$1" 2>/dev/null || { echo "找不到目錄 $1" >&2; exit 2; }
