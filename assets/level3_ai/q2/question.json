@@ -1,0 +1,19 @@
+{
+  "id": "level3-ai-q2-hidden-lamps",
+  "title": "迷霧遮住了幾盞燈？",
+  "question": "城堡有三座相同的拱門，每座拱門原本都有 4 盞燈。第一座的 4 盞全看得見，第二、三座各只看見 2 盞。迷霧一共遮住了幾盞燈？",
+  "image": "question.png",
+  "answerType": "text",
+  "options": ["2", "3", "4", "6"],
+  "correctIndex": 2,
+  "correctAnswer": "4",
+  "explanation": "三座拱門共有 3 × 4 = 12 盞；畫面可見 4 + 2 + 2 = 8 盞，所以遮住 12 − 8 = 4 盞。",
+  "level": 3,
+  "assetMethod": "AI-generated background with deterministic Pillow overlay",
+  "qa": {
+    "totalLamps": 12,
+    "visibleLamps": 8,
+    "hiddenLamps": 4,
+    "visibleByArch": [4, 2, 2]
+  }
+}

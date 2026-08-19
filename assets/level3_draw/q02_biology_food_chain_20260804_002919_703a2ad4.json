@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "status": "completed",
+  "model": "gpt-image-2",
+  "generation_method": "local-draw-override",
+  "prompt": "Square 1:1 full-color educational comic puzzle illustration in a clean modern middle-school science textbook style. A student detective investigates a school garden at dusk. Clearly show one leafy plant with several nibbled leaves, one green caterpillar on a leaf, one sparrow nearby with one fallen feather, and one non-threatening grass snake beside a visible shed snake skin. Arrange these as separate visual clues in a coherent garden scene, with the detective studying the evidence through a magnifying glass. Make each organism easy to identify and keep the scene friendly rather than frightening. Do not draw arrows or written clues. No text, no letters, no numbers, no readable symbols, no watermark.\n",
+  "mode": "generate",
+  "edit": null,
+  "mask": null,
+  "size": "1024x1024",
+  "quality": "low",
+  "requested": 1,
+  "completed": 1,
+  "files": [
+    "G:\\我的雲端硬碟\\2026worldwall\\assets\\level3_draw\\q02_biology_food_chain_20260804_002949_655_01_c8b68e30.png"
+  ],
+  "errors": [],
+  "name": "q02_biology_food_chain",
+  "outdir": "G:\\我的雲端硬碟\\2026worldwall\\assets\\level3_draw",
+  "concurrency": 2,
+  "ipm": 18,
+  "max_retries": 5,
+  "created_at": "2026-08-04T00:29:19.552958+08:00",
+  "updated_at": "2026-08-04T00:29:49.703396+08:00"
+}

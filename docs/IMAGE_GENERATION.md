@@ -18,11 +18,18 @@
 三級出題門檻、整張題圖、圖片配對與素材 manifest 規格見
 [`QUESTION_LEVELS.md`](QUESTION_LEVELS.md)。
 
-## 沒有內建生圖能力時
+## 沒有可用生圖能力時
 
-Agent 必須暫停 Level 3 建立，清楚說明目前無法呼叫內建生圖工具，並請使用者提供圖片
-或明確確認降級為 Level 2。不得把「只寫 prompt」標示為已完成 Level 3。
+Agent 必須暫停 Level 3 建立，清楚說明目前無法呼叫對應的生圖工具，並請使用者提供圖片
+或明確確認降級為 Level 2。ChatGPT／Codex 的對應工具是 `image_gen`，OpenCode 的對應工具
+是 Draw。不得把「只寫 prompt」標示為已完成 Level 3。
 不得要求使用者把 API key 寫進 repo，也不得把 session、金鑰或私人技能路徑提交到 GitHub。
+
+## OpenCode 環境覆寫
+
+在 OpenCode 執行 Level 3 時，一律載入 `draw` skill 並使用 Draw 實際產圖；不得呼叫
+`imagegen`／`image_gen`，也不得只保存 prompt。產圖後必須目視檢查定稿 PNG，並在 asset
+manifest 使用 `generation_method=local-draw-override`。
 
 ## 本機覆寫
 

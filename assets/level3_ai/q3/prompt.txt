@@ -1,0 +1,14 @@
+Use case: illustration-story
+Asset type: square educational visual puzzle for a Wordwall mirror-image question
+Primary request: Create one polished, text-free fantasy illustration viewed straight on. A friendly armored knight stands centered beside a tall magical mirror frame, with a tiny dragon clearly standing only on one side of the knight. The scene must be strongly left-right asymmetric so a horizontal mirror image is easy to identify.
+Scene/backdrop: whimsical medieval castle chamber, frontal and nearly flat composition; place a single glowing floor lantern and a narrow stone tower detail on only one side of the background, with the opposite side visibly different.
+Subject: full-body knight facing directly toward the viewer. Put a large round shield clearly in one hand and a long sword clearly in the opposite hand. Attach one bright red feather plume to only one side of the helmet. Put the small dragon entirely on one side only, not centered.
+Style/medium: high-quality colorful children's fantasy storybook illustration, crisp readable silhouettes, clean edges, suitable for junior-high visual reasoning.
+Composition/framing: square 1:1, straight-on frontal view, full character and props visible with generous margins; no perspective tilt; avoid bilateral symmetry.
+Lighting/mood: bright magical warm lighting, adventurous and friendly.
+Color palette: royal blue armor accents, gold trim, bright red one-sided plume, emerald dragon.
+Constraints: exactly one knight, exactly one shield, exactly one sword, exactly one red feather plume, exactly one small dragon; obvious side placement; no writing anywhere.
+Avoid: text, letters, numbers, symbols, watermark, logo, duplicated limbs, extra weapons, extra dragons, mirrored duplicate character, symmetrical background, cropped props, side profile.
+
+Generation mode: built-in image_gen
+Deterministic options: A = original; B = horizontal mirror; C = vertical flip; D = 180-degree rotation.

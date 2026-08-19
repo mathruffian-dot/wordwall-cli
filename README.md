@@ -151,7 +151,9 @@ Quiz 的題幹及每個答案、Pair 的左右兩端，都能使用共用媒體�
 公開 repo 預設使用 **ChatGPT 訂閱方案內建生圖**，不要求 API key，也不依賴某個
 維護者電腦上的私人技能。已有題庫圖片或 PDF 時優先使用原素材；需要新圖時由 Agent
 使用所在 ChatGPT／Codex 環境的 `imagegen` skill／`image_gen` 內建工具實際產圖。
-Level 3 不得只留下 prompt 或靜默改用截圖；若環境沒有內建生圖工具，必須停下來請
+在 OpenCode 環境則固定載入 `draw` skill，使用 Draw 實際產圖，並在 asset manifest
+記錄 `generation_method=local-draw-override`。
+Level 3 不得只留下 prompt 或靜默改用截圖；若環境沒有對應的生圖工具，必須停下來請
 使用者提供圖片或確認降級。完整規則見
 [docs/IMAGE_GENERATION.md](docs/IMAGE_GENERATION.md)。
 

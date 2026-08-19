@@ -1,0 +1,39 @@
+{
+  "id": "level3-ai-q3-magic-mirror",
+  "type": "image_choice",
+  "level": 3,
+  "title": "魔法鏡中的騎士",
+  "question": "哪一張圖片是這個場景在鏡子中的正確影像？",
+  "question_image": "question.png",
+  "options": [
+    {
+      "label": "A",
+      "image": "option_a.png",
+      "transform": "original"
+    },
+    {
+      "label": "B",
+      "image": "option_b.png",
+      "transform": "horizontal_mirror"
+    },
+    {
+      "label": "C",
+      "image": "option_c.png",
+      "transform": "vertical_flip"
+    },
+    {
+      "label": "D",
+      "image": "option_d.png",
+      "transform": "rotate_180"
+    }
+  ],
+  "correct_answer_index": 1,
+  "correct_answer_label": "B",
+  "explanation": "鏡面反射會左右互換，但上下不變。",
+  "asset_generation": {
+    "base": "base.png",
+    "mode": "built-in image_gen",
+    "prompt_file": "prompt.txt",
+    "options_method": "deterministic Pillow transforms"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "template": "quiz",
+  "title": "魔法學院 Level 3 視覺數學挑戰",
+  "items": [
+    {
+      "question": {
+        "text": "觀察密室依序旋轉的規律，下一張圖片應該是哪一張？",
+        "image": "q1/question.png"
+      },
+      "answers": [
+        { "text": "A", "image": "q1/option_a.png" },
+        { "text": "B", "image": "q1/option_b.png" },
+        { "text": "C", "image": "q1/option_c.png" },
+        { "text": "D", "image": "q1/option_d.png" }
+      ],
+      "correct": 0
+    },
+    {
+      "question": {
+        "text": "城堡有三座相同拱門，每座原本各有 4 盞燈。第一座 4 盞全看得見，第二、三座各只看見 2 盞。迷霧一共遮住幾盞燈？",
+        "image": "q2/question.png"
+      },
+      "answers": ["2", "3", "4", "6"],
+      "correct": 2
+    },
+    {
+      "question": {
+        "text": "哪一張圖片是這個場景在鏡子中的正確影像？",
+        "image": "q3/question.png"
+      },
+      "answers": [
+        { "text": "A", "image": "q3/option_a.png" },
+        { "text": "B", "image": "q3/option_b.png" },
+        { "text": "C", "image": "q3/option_c.png" },
+        { "text": "D", "image": "q3/option_d.png" }
+      ],
+      "correct": 1
+    }
+  ]
+}

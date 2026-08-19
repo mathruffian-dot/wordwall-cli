@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "status": "completed",
+  "model": "gpt-image-2",
+  "generation_method": "local-draw-override",
+  "prompt": "Square 1:1 full-color educational comic puzzle illustration in a clean modern middle-school textbook style. A school treasure hunt takes place in a locked cabinet room. Show a friendly student detective kneeling beside a wooden treasure chest with three separate locks. Make exactly THREE identical red shield badges clearly visible on a clue board beside the chest. Include small visual hints such as grouped objects and a trail of colored keys, but do not include written clues. Use a four-panel composition in one square image: discovering the chest, counting the three red badges, examining the locks, and getting excited at the chest. Keep the three red badges unmistakable and easy to count. No text, no letters, no numbers, no readable symbols, no watermark.\n",
+  "mode": "generate",
+  "edit": null,
+  "mask": null,
+  "size": "1024x1024",
+  "quality": "low",
+  "requested": 1,
+  "completed": 1,
+  "files": [
+    "G:\\我的雲端硬碟\\2026worldwall\\assets\\level3_draw\\q01_math_treasure_20260804_002853_566_01_901e496a.png"
+  ],
+  "errors": [],
+  "name": "q01_math_treasure",
+  "outdir": "G:\\我的雲端硬碟\\2026worldwall\\assets\\level3_draw",
+  "concurrency": 2,
+  "ipm": 18,
+  "max_retries": 5,
+  "created_at": "2026-08-04T00:28:18.556577+08:00",
+  "updated_at": "2026-08-04T00:28:53.610790+08:00"
+}

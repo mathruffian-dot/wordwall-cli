@@ -1,0 +1,24 @@
+{
+  "template": "quiz",
+  "title": "114年國中教育會考數學 Level 2｜第3、5、6題",
+  "items": [
+    {
+      "question": "請看題圖作答（第3題）",
+      "image": "../assets/level2_114_math/q03.png",
+      "answers": ["A", "B", "C", "D"],
+      "correct": 2
+    },
+    {
+      "question": "請看題圖作答（第5題）",
+      "image": "../assets/level2_114_math/q05.png",
+      "answers": ["A", "B", "C", "D"],
+      "correct": 2
+    },
+    {
+      "question": "請看題圖作答（第6題）",
+      "image": "../assets/level2_114_math/q06.png",
+      "answers": ["A", "B", "C", "D"],
+      "correct": 0
+    }
+  ]
+}

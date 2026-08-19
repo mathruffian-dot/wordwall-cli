@@ -31,6 +31,11 @@ class WordwallHelpersTest(unittest.TestCase):
         self.assertTrue(plan["image_generation"]["required"])
         self.assertEqual(plan["image_generation"]["skill"], "imagegen")
         self.assertEqual(plan["image_generation"]["tool"], "image_gen")
+        self.assertEqual(plan["image_generation"]["opencode"]["skill"], "draw")
+        self.assertEqual(plan["image_generation"]["opencode"]["tool"], "Draw")
+        self.assertEqual(
+            plan["image_generation"]["opencode"]["generation_method"],
+            "local-draw-override")
         self.assertIn("不得只輸出 prompt",
                       plan["image_generation"]["unavailable_action"])
         self.assertEqual(

@@ -1,0 +1,12 @@
+生成模式：內建 ImageGen（Draw 技能不可用時的替代方案）
+用途分類：illustration-story
+用途：Wordwall 國中數學 Level 3 AI 圖片題底圖
+
+提示詞：
+Create a polished wide fantasy castle night scene with exactly three large, clearly separated, identical-size stone archways viewed straight-on from the front. The three arch interiors should be dark and spacious, with clean stone borders and clear empty side surfaces around each arch where deterministic lantern graphics can later be overlaid. Add soft magical blue-violet moonlight and gentle low-lying mist concentrated along the bottom third, but do not obscure the upper and middle stone surfaces. The architecture should be symmetric and easy to understand at mobile size. High-quality whimsical educational fantasy illustration, painterly 3D storybook look, inviting rather than scary. Landscape 16:9, centered, straight-on, all three full archways visible with generous margins, no perspective distortion, uncluttered. No lanterns, lamps, torches, candles, people, creatures, signs, symbols, text, numbers, or watermark. Exactly three archways, same apparent dimensions.
+
+確定性後製：
+- 每座拱門固定配置二乘二、共四盞燈。
+- 第一座四盞全可見。
+- 第二、三座各有上排兩盞可見；下排兩盞先畫出，再由不透明濃霧完整覆蓋。
+- 總數十二盞、可見八盞、被遮住四盞。

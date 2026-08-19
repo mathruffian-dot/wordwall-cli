@@ -1,0 +1,58 @@
+{
+  "asset_level": "screenshot",
+  "generation_method": "existing-or-screenshot",
+  "source_files": [
+    "G:/我的雲端硬碟/2026會考歷屆試題/math/111年國中教育會考_數學科試題本.pdf",
+    "G:/我的雲端硬碟/2026會考歷屆試題/math/112年國中教育會考_數學科試題本.pdf",
+    "G:/我的雲端硬碟/2026會考歷屆試題/math/113年國中教育會考_數學科試題本.pdf",
+    "G:/我的雲端硬碟/2026會考歷屆試題/math/114年國中教育會考_數學科試題本.pdf",
+    "G:/我的雲端硬碟/2026會考歷屆試題/115P_Math.pdf"
+  ],
+  "final_assets": [
+    {
+      "role": "composite-question",
+      "path": "q01.png"
+    },
+    {
+      "role": "composite-question",
+      "path": "q02.png"
+    },
+    {
+      "role": "composite-question",
+      "path": "q03.png"
+    },
+    {
+      "role": "composite-question",
+      "path": "q04.png"
+    },
+    {
+      "role": "composite-question",
+      "path": "q05.png"
+    },
+    {
+      "role": "composite-question",
+      "path": "q06.png"
+    },
+    {
+      "role": "composite-question",
+      "path": "q07.png"
+    },
+    {
+      "role": "composite-question",
+      "path": "q08.png"
+    },
+    {
+      "role": "composite-question",
+      "path": "q09.png"
+    },
+    {
+      "role": "composite-question",
+      "path": "q10.png"
+    }
+  ],
+  "capture_finalized": true,
+  "math_verified": true,
+  "answer_leak_checked": true,
+  "mobile_checked": true,
+  "notes": "全部題圖以歷屆 PDF 題型與精準坐標／公式重新排版；未使用 AI 生圖。"
+}

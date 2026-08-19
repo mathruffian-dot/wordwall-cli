@@ -1,0 +1,13 @@
+生成方式：內建 image_gen（Draw 不存在時的替代方案）
+
+Use case: illustration-story
+Asset type: square source artwork for a middle-school visual pattern quiz
+Primary request: Create one polished, wordless fantasy mechanical secret chamber seen from a perfectly top-down bird's-eye view. The entire square scene must be deliberately and strongly asymmetric so its orientation is unmistakable when rotated.
+Scene/backdrop: a square stone-and-brass chamber floor with an irregular gear-tile pattern; exactly one ornate arched door set into only one wall; one broken corner pipe; one small pile of copper gears in another distinct corner.
+Subject: exactly one cute compact brass-and-teal robot standing clearly off-center, holding exactly one glowing cyan crystal. Give the robot one asymmetric feature such as a single red shoulder plate.
+Style/medium: high-quality colorful 3D storybook game illustration, crisp shapes, suitable for ages 12-15.
+Composition/framing: strict orthographic top-down view, centered square room, generous safe margins, no perspective tilt, all key objects fully visible, strong readable silhouette at mobile thumbnail size.
+Lighting/mood: magical cyan crystal glow with warm brass accents; adventurous and friendly.
+Color palette: slate blue stone, antique brass, teal robot, cyan crystal, one red accent.
+Constraints: exactly one robot, exactly one crystal, exactly one door; visibly asymmetric layout; rotation-friendly; no labels; no letters; no numbers; no symbols that resemble text; no watermark; no border; no UI; no multiple panels.
+Avoid: symmetry, isometric camera, side view, cropped objects, repeated doors, duplicated robot, illegible clutter.

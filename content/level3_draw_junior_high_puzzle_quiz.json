@@ -1,0 +1,34 @@
+{
+  "template": "quiz",
+  "title": "國中跨學科視覺解謎：數學、生物、英文",
+  "items": [
+    {
+      "question": "寶箱密碼在 20 到 50 之間，同時是 3 和 4 的倍數，而且十位數等於圖中紅色徽章數量。密碼是？",
+      "image": "../assets/level3_draw/q01_math_treasure_20260804_002853_566_01_901e496a.png",
+      "answers": ["24", "30", "36", "48"],
+      "correct": 2
+    },
+    {
+      "question": "根據圖中的線索，哪一條食物鏈最合理？",
+      "image": "../assets/level3_draw/q02_biology_food_chain_20260804_002949_655_01_c8b68e30.png",
+      "answers": [
+        "A. 草 -> 毛毛蟲 -> 麻雀 -> 蛇",
+        "B. 草 -> 麻雀 -> 毛毛蟲 -> 蛇",
+        "C. 蛇 -> 麻雀 -> 草 -> 毛毛蟲",
+        "D. 草 -> 蛇 -> 麻雀 -> 毛毛蟲"
+      ],
+      "correct": 0
+    },
+    {
+      "question": "Which sentence correctly describes the scene at 8:05?",
+      "image": "../assets/level3_draw/q03_english_missing_dictionary_20260804_003054_825_01_56e9cadf.png",
+      "answers": [
+        "A. Mia was checking the locker while Leo was looking under the desk.",
+        "B. Mia were checking the locker while Leo was looking under the desk.",
+        "C. Mia was check the locker while Leo looked under the desk.",
+        "D. Mia is checking the locker while Leo was looking under the desk."
+      ],
+      "correct": 0
+    }
+  ]
+}

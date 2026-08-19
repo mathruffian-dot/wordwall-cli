@@ -1,0 +1,136 @@
+{
+  "template": "quiz",
+  "title": "B2 第1–2章｜111–115 年歷屆原題截圖｜10 題",
+  "items": [
+    {
+      "question": {
+        "text": "請看原始題圖作答。",
+        "image": "q01.png"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 2
+    },
+    {
+      "question": {
+        "text": "請看原始題圖作答。",
+        "image": "q02.png"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 2
+    },
+    {
+      "question": {
+        "text": "請看原始題圖作答。",
+        "image": "q03.png"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 1
+    },
+    {
+      "question": {
+        "text": "請看原始題圖作答。",
+        "image": "q04.png"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 3
+    },
+    {
+      "question": {
+        "text": "請看原始題圖作答。",
+        "image": "q05.png"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 1
+    },
+    {
+      "question": {
+        "text": "請看原始題圖作答。",
+        "image": "q06.png"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 0
+    },
+    {
+      "question": {
+        "text": "請看原始題圖作答。",
+        "image": "q07.png"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 0
+    },
+    {
+      "question": {
+        "text": "請看原始題圖作答。",
+        "image": "q08.png"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 3
+    },
+    {
+      "question": {
+        "text": "請看原始題圖作答。",
+        "image": "q09.png"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 3
+    },
+    {
+      "question": {
+        "text": "請看原始題圖作答。",
+        "image": "q10.png"
+      },
+      "answers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "correct": 1
+    }
+  ]
+}

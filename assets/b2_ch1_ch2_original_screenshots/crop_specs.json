@@ -1,0 +1,202 @@
+[
+  {
+    "id": "q01",
+    "year": "115",
+    "question": 1,
+    "page": 2,
+    "box": [
+      45,
+      72,
+      450,
+      215
+    ],
+    "answer": "C",
+    "title": "解二元一次聯立方程式",
+    "source_file": "G:/我的雲端硬碟/2026會考歷屆試題/115P_Math.pdf",
+    "render_scale": 4.0,
+    "pixel_size": [
+      1620,
+      572
+    ]
+  },
+  {
+    "id": "q02",
+    "year": "113",
+    "question": 3,
+    "page": 2,
+    "box": [
+      45,
+      570,
+      560,
+      735
+    ],
+    "answer": "C",
+    "title": "聯立方程式與代數和",
+    "source_file": "G:/我的雲端硬碟/2026會考歷屆試題/math/113年國中教育會考_數學科試題本.pdf",
+    "render_scale": 4.0,
+    "pixel_size": [
+      2060,
+      660
+    ]
+  },
+  {
+    "id": "q03",
+    "year": "114",
+    "question": 4,
+    "page": 3,
+    "box": [
+      45,
+      45,
+      560,
+      285
+    ],
+    "answer": "B",
+    "title": "聯立方程式與代數式",
+    "source_file": "G:/我的雲端硬碟/2026會考歷屆試題/math/114年國中教育會考_數學科試題本.pdf",
+    "render_scale": 4.0,
+    "pixel_size": [
+      2060,
+      960
+    ]
+  },
+  {
+    "id": "q04",
+    "year": "111",
+    "question": 7,
+    "page": 3,
+    "box": [
+      45,
+      405,
+      560,
+      570
+    ],
+    "answer": "D",
+    "title": "點到垂直線的距離",
+    "source_file": "G:/我的雲端硬碟/2026會考歷屆試題/math/111年國中教育會考_數學科試題本.pdf",
+    "render_scale": 4.0,
+    "pixel_size": [
+      2060,
+      660
+    ]
+  },
+  {
+    "id": "q05",
+    "year": "112",
+    "question": 5,
+    "page": 3,
+    "box": [
+      45,
+      45,
+      560,
+      195
+    ],
+    "answer": "B",
+    "title": "一次函數上的點",
+    "source_file": "G:/我的雲端硬碟/2026會考歷屆試題/math/112年國中教育會考_數學科試題本.pdf",
+    "render_scale": 4.0,
+    "pixel_size": [
+      2060,
+      600
+    ]
+  },
+  {
+    "id": "q06",
+    "year": "112",
+    "question": 7,
+    "page": 3,
+    "box": [
+      45,
+      345,
+      560,
+      555
+    ],
+    "answer": "A",
+    "title": "直線與點的相對位置",
+    "source_file": "G:/我的雲端硬碟/2026會考歷屆試題/math/112年國中教育會考_數學科試題本.pdf",
+    "render_scale": 4.0,
+    "pixel_size": [
+      2060,
+      840
+    ]
+  },
+  {
+    "id": "q07",
+    "year": "114",
+    "question": 6,
+    "page": 3,
+    "box": [
+      45,
+      510,
+      560,
+      805
+    ],
+    "answer": "A",
+    "title": "坐標移動方向",
+    "source_file": "G:/我的雲端硬碟/2026會考歷屆試題/math/114年國中教育會考_數學科試題本.pdf",
+    "render_scale": 4.0,
+    "pixel_size": [
+      2060,
+      1180
+    ]
+  },
+  {
+    "id": "q08",
+    "year": "115",
+    "question": 13,
+    "page": 6,
+    "box": [
+      45,
+      45,
+      560,
+      265
+    ],
+    "answer": "D",
+    "title": "水平線方程式",
+    "source_file": "G:/我的雲端硬碟/2026會考歷屆試題/115P_Math.pdf",
+    "render_scale": 4.0,
+    "pixel_size": [
+      2060,
+      880
+    ]
+  },
+  {
+    "id": "q09",
+    "year": "114",
+    "question": 21,
+    "page": 9,
+    "box": [
+      45,
+      45,
+      560,
+      265
+    ],
+    "answer": "D",
+    "title": "二次函數平移與坐標",
+    "source_file": "G:/我的雲端硬碟/2026會考歷屆試題/math/114年國中教育會考_數學科試題本.pdf",
+    "render_scale": 4.0,
+    "pixel_size": [
+      2060,
+      880
+    ]
+  },
+  {
+    "id": "q10",
+    "year": "115",
+    "question": 14,
+    "page": 6,
+    "box": [
+      45,
+      265,
+      560,
+      535
+    ],
+    "answer": "B",
+    "title": "二次函數圖形的 y 坐標",
+    "source_file": "G:/我的雲端硬碟/2026會考歷屆試題/115P_Math.pdf",
+    "render_scale": 4.0,
+    "pixel_size": [
+      2060,
+      1080
+    ]
+  }
+]

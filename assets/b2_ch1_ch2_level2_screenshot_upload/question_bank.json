@@ -1,0 +1,189 @@
+{
+  "title": "B2 第1–2章｜聯立方程式、直角坐標｜111–115 年會考題型改編",
+  "grade": "國中八年級",
+  "chapters": [
+    "聯立方程式",
+    "直角坐標"
+  ],
+  "years": [
+    111,
+    112,
+    113,
+    114,
+    115
+  ],
+  "format": "四選一",
+  "level": 2,
+  "items": [
+    {
+      "id": "q01",
+      "title": "直接解聯立方程式",
+      "prompt": "解下列二元一次聯立方程式，x 值為何？",
+      "options": [
+        "−4",
+        "−2",
+        "2",
+        "4"
+      ],
+      "correct": 2,
+      "correct_label": "C",
+      "explanation": "兩式相加得 3x=6，所以 x=2。",
+      "source": "115 年第 1 題",
+      "image": "q01.png",
+      "level": 2
+    },
+    {
+      "id": "q02",
+      "title": "代入法與代數和",
+      "prompt": "若聯立方程式的解為 x=a、y=b，則 a+b 為何？",
+      "options": [
+        "−28",
+        "−14",
+        "−4",
+        "14"
+      ],
+      "correct": 2,
+      "correct_label": "C",
+      "explanation": "代入 y=−3x 得 14x=28，x=2、y=−6，所以 a+b=−4。",
+      "source": "113 年第 3 題",
+      "image": "q02.png",
+      "level": 2
+    },
+    {
+      "id": "q03",
+      "title": "消去法與代數式",
+      "prompt": "若聯立方程式的解為 x=a、y=b，則 a+2b 為何？",
+      "options": [
+        "33",
+        "9",
+        "−3",
+        "−27"
+      ],
+      "correct": 1,
+      "correct_label": "B",
+      "explanation": "兩式相加得 60x=120，所以 x=2；代回得 y=7/2，a+2b=2+7=9。",
+      "source": "114 年第 4 題",
+      "image": "q03.png",
+      "level": 2
+    },
+    {
+      "id": "q04",
+      "title": "改編題：加減消去",
+      "prompt": "解下列聯立方程式，x+y 為何？",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "correct": 2,
+      "correct_label": "C",
+      "explanation": "兩式相加得 4x=12，所以 x=3、y=2，x+y=5。",
+      "source": "115 年第 1 題改編",
+      "image": "q04.png",
+      "level": 2
+    },
+    {
+      "id": "q05",
+      "title": "改編題：兩式相減",
+      "prompt": "解下列聯立方程式，x−y 為何？",
+      "options": [
+        "−2",
+        "0",
+        "2",
+        "4"
+      ],
+      "correct": 2,
+      "correct_label": "C",
+      "explanation": "兩式相加得 4x=16，所以 x=4；由第二式得 y=2，因此 x−y=2。",
+      "source": "113、114 年題型改編",
+      "image": "q05.png",
+      "level": 2
+    },
+    {
+      "id": "q06",
+      "title": "直線與點的相對位置",
+      "prompt": "如圖，P 點坐標為 (a,b)。下列關係何者正確？",
+      "options": [
+        "a＜−5，b＞−3",
+        "a＜−5，b＜−3",
+        "a＞−5，b＞−3",
+        "a＞−5，b＜−3"
+      ],
+      "correct": 0,
+      "correct_label": "A",
+      "explanation": "P 在 x=−5 的左側且在 y=−3 的上方，所以 a＜−5、b＞−3。",
+      "source": "112 年第 7 題改編",
+      "image": "q06.png",
+      "level": 2
+    },
+    {
+      "id": "q07",
+      "title": "一次函數上的點",
+      "prompt": "一次函數 y=−2x−6 的圖形通過下列哪一個點？",
+      "options": [
+        "(−4,1)",
+        "(−4,2)",
+        "(−4,−1)",
+        "(−4,−2)"
+      ],
+      "correct": 1,
+      "correct_label": "B",
+      "explanation": "代入 x=−4，得 y=8−6=2，所以答案是 (−4,2)。",
+      "source": "112 年第 5 題",
+      "image": "q07.png",
+      "level": 2
+    },
+    {
+      "id": "q08",
+      "title": "點到垂直線的距離",
+      "prompt": "直線 L 的方程式為 x=−2，A 點坐標為 (6,5)。A 點到 L 的距離為何？",
+      "options": [
+        "3",
+        "4",
+        "7",
+        "8"
+      ],
+      "correct": 3,
+      "correct_label": "D",
+      "explanation": "垂直線 x=−2 的距離只看 x 坐標差，|6−(−2)|=8。",
+      "source": "111 年第 7 題",
+      "image": "q08.png",
+      "level": 2
+    },
+    {
+      "id": "q09",
+      "title": "坐標移動方向",
+      "prompt": "從點 (−1,2) 出發，先向下移動，再向右移動，可能到達哪一點？",
+      "options": [
+        "(4,1)",
+        "(4,3)",
+        "(−4,1)",
+        "(−4,3)"
+      ],
+      "correct": 0,
+      "correct_label": "A",
+      "explanation": "向下表示 y 變小，向右表示 x 變大，只有 (4,1) 符合。",
+      "source": "114 年第 6 題",
+      "image": "q09.png",
+      "level": 2
+    },
+    {
+      "id": "q10",
+      "title": "水平線方程式",
+      "prompt": "直線 L 與 x 軸平行，且通過點 (−3,−1)。L 的方程式為何？",
+      "options": [
+        "x=−3",
+        "y=−3",
+        "x=−1",
+        "y=−1"
+      ],
+      "correct": 3,
+      "correct_label": "D",
+      "explanation": "與 x 軸平行的直線是水平線，y 值固定為 −1。",
+      "source": "115 年第 13 題",
+      "image": "q10.png",
+      "level": 2
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "level3-ai-q1-rotation",
+  "title": "機械密室的旋轉規律",
+  "question": "觀察密室依序旋轉的規律，下一張圖片應該是哪一張？",
+  "type": "image_options",
+  "question_image": "question.png",
+  "options": [
+    {
+      "label": "A",
+      "image": "option_a.png"
+    },
+    {
+      "label": "B",
+      "image": "option_b.png"
+    },
+    {
+      "label": "C",
+      "image": "option_c.png"
+    },
+    {
+      "label": "D",
+      "image": "option_d.png"
+    }
+  ],
+  "correct_index": 0,
+  "correct_label": "A",
+  "explanation": "每次逆時針旋轉九十度，因此下一張是原圖逆時針旋轉二百七十度。",
+  "source_image": "base.png",
+  "generation_level": 3
+}

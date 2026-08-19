@@ -1,0 +1,30 @@
+{
+  "asset_level": "ai-image",
+  "generation_method": "chatgpt-subscription",
+  "source_files": [
+    "q1/base.png",
+    "q1/prompt.txt",
+    "q2/base.png",
+    "q2/prompt.txt",
+    "q3/base.png",
+    "q3/prompt.txt"
+  ],
+  "final_assets": [
+    { "role": "composite-question", "path": "q1/question.png" },
+    { "role": "final-item-or-pair-side", "path": "q1/option_a.png" },
+    { "role": "final-item-or-pair-side", "path": "q1/option_b.png" },
+    { "role": "final-item-or-pair-side", "path": "q1/option_c.png" },
+    { "role": "final-item-or-pair-side", "path": "q1/option_d.png" },
+    { "role": "composite-question", "path": "q2/question.png" },
+    { "role": "composite-question", "path": "q3/question.png" },
+    { "role": "final-item-or-pair-side", "path": "q3/option_a.png" },
+    { "role": "final-item-or-pair-side", "path": "q3/option_b.png" },
+    { "role": "final-item-or-pair-side", "path": "q3/option_c.png" },
+    { "role": "final-item-or-pair-side", "path": "q3/option_d.png" }
+  ],
+  "capture_finalized": true,
+  "math_verified": true,
+  "answer_leak_checked": true,
+  "mobile_checked": true,
+  "prompt": "完整實際提示詞分別保存在 q1/prompt.txt、q2/prompt.txt、q3/prompt.txt；三題皆以內建 image_gen 生成 Level 3 場景，再用確定性 Pillow 後製旋轉、燈數與鏡射選項。"
+}

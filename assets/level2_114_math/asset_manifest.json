@@ -1,0 +1,37 @@
+{
+  "asset_level": "screenshot",
+  "generation_method": "existing-or-screenshot",
+  "source_files": [
+    "C:/2026安樂高中/國中教育會考歷屆試題/114P_Math.pdf"
+  ],
+  "final_assets": [
+    {
+      "role": "composite-question",
+      "path": "q03.png",
+      "source_page": 2,
+      "crop": [55, 485, 540, 725]
+    },
+    {
+      "role": "composite-question",
+      "path": "q05.png",
+      "source_page": 3,
+      "crop": [55, 270, 540, 485]
+    },
+    {
+      "role": "composite-question",
+      "path": "q06.png",
+      "source_page": 3,
+      "crop": [55, 510, 540, 720]
+    }
+  ],
+  "capture_finalized": true,
+  "math_verified": true,
+  "answer_leak_checked": true,
+  "mobile_checked": true,
+  "answer_source": "114年國中教育會考選擇題參考答案一覽表",
+  "answers": {
+    "3": "C",
+    "5": "C",
+    "6": "A"
+  }
+}

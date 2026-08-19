@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.7" fill="#777" opacity=".45"/>
+      <circle cx="8" cy="8" r="1.2" fill="#888" opacity=".32"/>
+    </pattern>
+    <pattern id="fineDots" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#666" opacity=".34"/>
+    </pattern>
+    <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency=".015" numOctaves="2" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8"/>
+    </filter>
+    <linearGradient id="gray" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fafafa"/>
+      <stop offset="1" stop-color="#d4d4d4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- manga paper and panel border -->
+  <rect width="1024" height="1024" fill="#f9f9f7"/>
+  <rect x="27" y="27" width="970" height="970" rx="8" fill="none" stroke="#111" stroke-width="12"/>
+  <path d="M45 205 L981 115 M42 239 L987 150 M55 278 L971 190" stroke="#111" stroke-width="3" opacity=".22"/>
+  <path d="M80 795 L950 930 M54 835 L914 975 M105 755 L978 893" stroke="#111" stroke-width="3" opacity=".18"/>
+  <rect x="55" y="55" width="914" height="900" fill="url(#dots)" opacity=".25"/>
+
+  <!-- dramatic speed lines -->
+  <g stroke="#111" fill="none" stroke-linecap="round">
+    <path d="M80 350 L355 440" stroke-width="7"/>
+    <path d="M65 405 L340 465" stroke-width="4"/>
+    <path d="M88 478 L346 492" stroke-width="5"/>
+    <path d="M89 590 L350 530" stroke-width="6"/>
+    <path d="M104 660 L375 563" stroke-width="3"/>
+    <path d="M942 315 L724 418" stroke-width="6"/>
+    <path d="M963 380 L742 438" stroke-width="4"/>
+    <path d="M964 505 L746 493" stroke-width="6"/>
+    <path d="M953 590 L720 532" stroke-width="3"/>
+    <path d="M944 684 L704 562" stroke-width="5"/>
+  </g>
+
+  <!-- grand piano body -->
+  <path d="M196 710 C230 640 276 555 380 510 C496 460 673 472 823 548 C895 585 920 650 899 708 C872 782 803 807 677 818 L240 818 C191 810 174 766 196 710Z" fill="#171717" stroke="#050505" stroke-width="10"/>
+  <path d="M223 689 C305 617 391 570 504 555 C638 538 783 571 858 637 C882 658 879 689 854 708 C796 750 674 758 523 750 L253 750 C223 744 207 718 223 689Z" fill="#383838" stroke="#0a0a0a" stroke-width="6"/>
+  <path d="M242 718 C396 728 627 724 846 688" fill="none" stroke="#aaa" stroke-width="4" opacity=".55"/>
+  <path d="M256 753 L237 910 M823 752 L858 906" stroke="#111" stroke-width="18"/>
+  <path d="M230 905 L294 905 M822 903 L892 903" stroke="#111" stroke-width="13"/>
+
+  <!-- keyboard -->
+  <path d="M362 620 L721 620 L756 708 L326 708Z" fill="#eee" stroke="#070707" stroke-width="9"/>
+  <g stroke="#111" stroke-width="4">
+    <path d="M385 624 L382 704 M414 624 L413 704 M443 624 L444 704 M472 624 L475 704 M501 624 L506 704 M530 624 L536 704 M559 624 L566 704 M588 624 L596 704 M617 624 L626 704 M646 624 L656 704 M675 624 L686 704 M704 624 L716 704"/>
+  </g>
+  <g fill="#111">
+    <path d="M400 624 L417 624 L415 667 L397 667Z"/><path d="M430 624 L448 624 L449 665 L431 665Z"/>
+    <path d="M487 624 L505 624 L507 666 L489 666Z"/><path d="M517 624 L535 624 L537 665 L519 665Z"/>
+    <path d="M575 624 L593 624 L596 666 L577 666Z"/><path d="M605 624 L623 624 L626 665 L607 665Z"/>
+    <path d="M664 624 L682 624 L686 666 L667 666Z"/>
+  </g>
+
+  <!-- cat shadow -->
+  <ellipse cx="525" cy="584" rx="250" ry="50" fill="#111" opacity=".22"/>
+
+  <!-- collapsed cat body -->
+  <g filter="url(#rough)">
+    <path d="M338 468 C344 391 413 340 501 351 C575 360 626 408 637 470 C648 528 600 574 529 578 C432 582 330 553 338 468Z" fill="url(#gray)" stroke="#111" stroke-width="10"/>
+    <!-- tail -->
+    <path d="M367 486 C281 500 275 429 322 407 C348 395 370 411 360 429 C347 452 326 438 329 426" fill="none" stroke="#111" stroke-width="18" stroke-linecap="round"/>
+    <!-- head -->
+    <path d="M477 343 L496 283 L537 325 L594 306 L604 373 C599 431 560 460 510 449 C467 440 452 397 477 343Z" fill="#e9e9e9" stroke="#111" stroke-width="10"/>
+    <!-- ears -->
+    <path d="M478 344 L463 270 L516 321Z" fill="#777" stroke="#111" stroke-width="8"/>
+    <path d="M539 326 L590 276 L598 361Z" fill="#777" stroke="#111" stroke-width="8"/>
+    <path d="M481 315 L475 291 L501 320 M557 322 L585 296 L589 345" fill="none" stroke="#111" stroke-width="4"/>
+    <!-- face, eyes closed -->
+    <path d="M489 369 Q502 380 515 369 M546 369 Q559 380 572 367" fill="none" stroke="#111" stroke-width="7" stroke-linecap="round"/>
+    <path d="M527 382 l-8 7 l8 6 l8-6Z" fill="#111"/>
+    <path d="M527 395 Q511 409 497 403 M527 395 Q542 408 556 401" fill="none" stroke="#111" stroke-width="4"/>
+    <!-- whiskers -->
+    <path d="M493 389 L432 377 M493 400 L426 402 M563 388 L620 369 M563 400 L629 409" fill="none" stroke="#111" stroke-width="3"/>
+    <!-- paws dangling over keys -->
+    <path d="M422 516 C411 555 408 590 426 614 C438 627 458 618 459 599 L462 541Z" fill="#eee" stroke="#111" stroke-width="9"/>
+    <path d="M592 515 C603 555 606 590 588 614 C576 627 556 618 555 599 L552 541Z" fill="#eee" stroke="#111" stroke-width="9"/>
+    <path d="M425 588 l12 7 M440 583 l12 9 M589 588 l-12 7 M574 583 l-12 9" stroke="#111" stroke-width="3"/>
+    <!-- limp back leg -->
+    <path d="M356 503 C317 533 296 576 321 597 C342 614 365 589 378 550" fill="#ddd" stroke="#111" stroke-width="9"/>
+    <!-- stripes -->
+    <path d="M390 382 L421 405 M370 412 L408 430 M365 447 L404 457 M602 426 L626 407 M604 455 L638 446" stroke="#111" stroke-width="8" opacity=".75"/>
+  </g>
+
+  <!-- comic impact marks -->
+  <g stroke="#111" fill="none" stroke-linecap="round">
+    <path d="M315 318 l-39-33 M350 292 l-18-50 M661 301 l20-51 M699 331 l42-36" stroke-width="8"/>
+    <path d="M293 339 l-55-10 M706 354 l58-2" stroke-width="5"/>
+  </g>
+  <path d="M753 196 l22 44 l48 6 l-37 31 l11 48 l-44-24 l-43 25 l10-49 l-36-30 l48-5Z" fill="url(#fineDots)" stroke="#111" stroke-width="6"/>
+
+  <!-- Japanese manga sound effects -->
+  <g font-family="Yu Gothic, Meiryo, sans-serif" font-weight="900" fill="#111" stroke="#fff" stroke-width="9" paint-order="stroke">
+    <text x="112" y="220" font-size="76" transform="rotate(-12 112 220)">バタッ</text>
+    <text x="737" y="846" font-size="64" transform="rotate(10 737 846)">Zzz…</text>
+  </g>
+  <g font-family="Yu Gothic, Meiryo, sans-serif" fill="#111">
+    <text x="94" y="900" font-size="24" letter-spacing="4">PIANO INCIDENT — MANGA PANEL</text>
+    <text x="810" y="930" font-size="22">#ねこ #ピアノ</text>
+  </g>
+
+  <!-- speech bubble -->
+  <path d="M735 115 C822 76 930 104 944 166 C954 212 898 248 822 236 L781 270 L786 229 C731 215 702 167 735 115Z" fill="#fff" stroke="#111" stroke-width="7"/>
+  <text x="760" y="174" font-family="Yu Gothic, Meiryo, sans-serif" font-weight="900" font-size="30" fill="#111">だ…大丈夫？</text>
+</svg>

@@ -1,0 +1,36 @@
+{
+  "template": "quiz",
+  "title": "115年會考數學｜選擇題1-5（圖片題）",
+  "items": [
+    {
+      "question": "第1題：請看題目截圖作答",
+      "image": "../assets/questions/115_math/115_math_choice_01.png",
+      "answers": ["A", "B", "C", "D"],
+      "correct": 2
+    },
+    {
+      "question": "第2題：請看題目截圖作答",
+      "image": "../assets/questions/115_math/115_math_choice_02.png",
+      "answers": ["A", "B", "C", "D"],
+      "correct": 3
+    },
+    {
+      "question": "第3題：請看題目截圖作答",
+      "image": "../assets/questions/115_math/115_math_choice_03.png",
+      "answers": ["A", "B", "C", "D"],
+      "correct": 2
+    },
+    {
+      "question": "第4題：請看題目截圖作答",
+      "image": "../assets/questions/115_math/115_math_choice_04.png",
+      "answers": ["A", "B", "C", "D"],
+      "correct": 1
+    },
+    {
+      "question": "第5題：請看題目截圖作答",
+      "image": "../assets/questions/115_math/115_math_choice_05.png",
+      "answers": ["A", "B", "C", "D"],
+      "correct": 2
+    }
+  ]
+}

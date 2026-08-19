@@ -174,7 +174,7 @@ def _asset_steps(level: str, layout: dict, gate: dict) -> list[str]:
 
     steps = [
         "確認 AI 圖片確實用於故事、漫畫、解謎或其他創意必要情境。",
-        "載入 imagegen skill 並呼叫 image_gen 內建工具實際產圖；不得只撰寫 prompt 或靜默降級。",
+        "依執行環境載入生圖 skill 實際產圖：OpenCode 一律使用 draw／Draw，ChatGPT／Codex 使用 imagegen／image_gen；不得只撰寫 prompt 或靜默降級。",
         "先生成無答案洩漏、風格一致的場景或選項素材。",
         "目視檢查生成結果，確認數學內容、文字可讀性、構圖與答案洩漏後再定稿。",
         "把數學文字、精準線段、刻度與答案標記用傳統排版覆蓋，不依賴 AI 畫準。",
@@ -346,8 +346,14 @@ def build_question_plan(request: str, requested_level: str = "auto",
             "required": level == "ai-image",
             "skill": "imagegen" if level == "ai-image" else None,
             "tool": "image_gen" if level == "ai-image" else None,
+            "opencode": ({
+                "skill": "draw",
+                "tool": "Draw",
+                "generation_method": "local-draw-override",
+                "instruction": "在 OpenCode 一律載入 draw skill 並使用 Draw 實際產圖。",
+            } if level == "ai-image" else None),
             "instruction": (
-                "載入 imagegen skill 並呼叫 image_gen 實際產圖；產圖後目視檢查。"
+                "依執行環境載入生圖 skill 實際產圖：OpenCode 使用 draw／Draw，ChatGPT／Codex 使用 imagegen／image_gen；產圖後目視檢查。"
                 if level == "ai-image" else "不需要生成圖片。"),
             "unavailable_action": (
                 "停止 Level 3，請使用者提供圖片或明確確認降級；不得只輸出 prompt。"

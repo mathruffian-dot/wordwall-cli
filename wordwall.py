@@ -972,14 +972,33 @@ def cmd_create(args):
 
 
 def _click_template(page, template: str):
-    """在建立頁點選指定範本卡片(已實測:用 data-template-id 最穩)。"""
+    """在建立頁點選指定範本卡片。
+
+    Wordwall 近期將卡片外層由 ``.template.js-item`` 改為
+    ``.template-icon-v2.js-template-icon-v2.js-item``；保留舊選擇器並
+    依序嘗試新版結構，避免依賴視覺位置或文字猜測。
+    """
     tid = TEMPLATE_IDS.get(template)
     if tid is None:
         raise ValueError(f"沒有 {template} 的 template-id 對照,請先補進 TEMPLATE_IDS。")
-    card = page.locator(f'.template.js-item[data-template-id="{tid}"]')
-    card.wait_for(state="visible", timeout=15000)
-    card.click()
-    page.wait_for_load_state("networkidle")
+    selectors = [
+        f'.template.js-item[data-template-id="{tid}"]',
+        f'.template-icon-v2.js-template-icon-v2.js-item[data-template-id="{tid}"]',
+        f'[data-template-id="{tid}"].js-item',
+    ]
+    last_error = None
+    for selector in selectors:
+        card = page.locator(selector).first
+        try:
+            card.wait_for(state="visible", timeout=5000)
+            card.click()
+            page.wait_for_load_state("networkidle")
+            return
+        except Exception as exc:
+            last_error = exc
+    raise TimeoutError(
+        f"找不到可見的 {template} 範本卡片 (template-id={tid})。"
+    ) from last_error
 
 
 def _upload_editor_image(page, container, image_path: Path | None):
